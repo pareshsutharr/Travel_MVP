@@ -1,22 +1,24 @@
+import Link from 'next/link'
+
 const footerLinks = {
   Journeys: [
-    'The Slow Ganges',
-    'Three Buddhas',
-    'Annapurna in Hush',
-    'Kashi after Dusk',
-    'Himalayan Silence',
+    ['The Slow Ganges', '/journeys/the-slow-ganges'],
+    ['Three Buddhas', '/journeys/three-buddhas'],
+    ['Annapurna in Hush', '/journeys/annapurna-in-hush'],
+    ['Kashi after Dusk', '/journeys?category=spiritual'],
+    ['Himalayan Silence', '/journeys?category=wellness'],
   ],
   Company: [
-    'How it works',
-    'About Solura',
-    'Reviews',
-    'The Story Line',
+    ['How it works', '/#how-it-works'],
+    ['About Solura', '/#solutions'],
+    ['Reviews', '/#reviews'],
+    ['The Story Line', '/journeys'],
   ],
   Support: [
-    'Counsel',
-    'SOS line',
-    'Visa help',
-    'Insurance',
+    ['Counsel', '/build/type'],
+    ['SOS line', '/dashboard/counsel'],
+    ['Visa help', '/dashboard/documents'],
+    ['Insurance', '/dashboard/documents'],
   ],
 };
 
@@ -69,13 +71,15 @@ export default function Footer() {
 
             {/* CTAs */}
             <div className="flex flex-col gap-3">
-              <button
+              <Link
+                href="/build/type"
                 className="w-fit px-6 py-3 rounded-full text-sm text-white transition-all duration-200 hover:opacity-90"
                 style={{ fontFamily: "'DM Sans', system-ui, sans-serif", backgroundColor: '#B89A4E', fontWeight: 400 }}
               >
                 Begin a journey →
-              </button>
-              <button
+              </Link>
+              <Link
+                href="/build/type"
                 className="w-fit px-6 py-3 rounded-full text-sm transition-all duration-200 hover:border-[#B89A4E] hover:text-[#B89A4E]"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -85,7 +89,7 @@ export default function Footer() {
                 }}
               >
                 Talk with Soma →
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -103,15 +107,15 @@ export default function Footer() {
                 {heading}
               </h4>
               <ul className="flex flex-col gap-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                {links.map(([label, href]) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
                       className="text-sm transition-colors duration-200 hover:text-[#B89A4E]"
                       style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(250, 250, 248, 0.6)', fontWeight: 300 }}
                     >
-                      {link}
-                    </a>
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -130,20 +134,20 @@ export default function Footer() {
             © 2026 Solura Travel · India &amp; Nepal · solura.travel
           </p>
           <div className="flex items-center gap-6">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="transition-colors hover:text-[#B89A4E]"
               style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(156, 149, 137, 0.6)', fontWeight: 300 }}
             >
               Privacy
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/"
               className="transition-colors hover:text-[#B89A4E]"
               style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(156, 149, 137, 0.6)', fontWeight: 300 }}
             >
               Terms
-            </a>
+            </Link>
           </div>
         </div>
       </div>

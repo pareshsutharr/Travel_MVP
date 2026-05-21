@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Calendar, CheckCircle2, Compass, FileText, Heart, MapPin, Route } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { initials } from '@/lib/utils'
+import ProfileEditForm from '@/app/components/user/ProfileEditForm'
 import type { Booking, Journey, Profile } from '@/types/database'
 
 type BookingRow = Booking & { journey: Journey | null }
@@ -34,7 +35,15 @@ export default async function ProfilePage() {
           ].map(([Icon, label, href]) => { const I = Icon as typeof Calendar; return <Link key={String(label)} href={String(href)} className="flex items-center gap-3 border-b border-[#E8E3D9] py-3 text-sm text-[#1C1917] last:border-0"><I size={16} className="text-[#B89A4E]" />{String(label)}<span className="ml-auto text-[#B89A4E]">-&gt;</span></Link> })}
         </div>
       </main>
-      <aside className="space-y-5 lg:col-span-2"><div className="rounded-xl border border-[#E8E3D9] bg-white p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Travel preferences</p><div className="flex flex-wrap gap-2">{prefs.length ? prefs.map((tag) => <span key={tag} className="rounded-full bg-[#F5F0E8] px-3 py-1 text-xs capitalize text-[#1C1917]">{tag}</span>) : <p className="text-xs text-[#9C9589]">Soma will learn as you travel.</p>}</div></div><div className="rounded-xl border border-[#E8E3D9] bg-white p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Edit profile</p><input className="mb-2 w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2 text-sm" defaultValue={profile?.full_name ?? ''} /><input className="w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2 text-sm" defaultValue={profile?.phone ?? ''} /></div></aside>
+      <aside className="space-y-5 lg:col-span-2">
+        <div className="rounded-xl border border-[#E8E3D9] bg-white p-5">
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Travel preferences</p>
+          <div className="flex flex-wrap gap-2">
+            {prefs.length ? prefs.map((tag) => <span key={tag} className="rounded-full bg-[#F5F0E8] px-3 py-1 text-xs capitalize text-[#1C1917]">{tag}</span>) : <p className="text-xs text-[#9C9589]">Soma will learn as you travel.</p>}
+          </div>
+        </div>
+        {profile && <ProfileEditForm profile={profile} />}
+      </aside>
     </div>
   )
 }

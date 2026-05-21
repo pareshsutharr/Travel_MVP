@@ -25,6 +25,8 @@ export interface Profile {
   updated_at: string
 }
 
+export type JourneyDifficulty = 'easy' | 'moderate' | 'challenging'
+
 export interface Journey {
   id: string
   slug: string
@@ -43,6 +45,12 @@ export interface Journey {
   sort_order: number
   rating: number | null
   review_count: number
+  image_url: string | null
+  cover_gradient: string | null
+  max_travelers: number
+  difficulty: JourneyDifficulty
+  best_season: string | null
+  tags: string[]
   created_at: string
   updated_at: string
 }
@@ -80,6 +88,8 @@ export interface Booking {
   current_location: string | null
   gps_lat: number | null
   gps_lng: number | null
+  gps_last_updated: string | null
+  sos_active: boolean
   counsellor_id: string | null
   notes: string | null
   created_at: string
@@ -134,4 +144,34 @@ export interface WishlistItem {
   journey_id: string | null
   created_at: string
   journey?: Journey
+}
+
+export interface GpsTracking {
+  id: string
+  booking_id: string
+  user_id: string
+  lat: number
+  lng: number
+  location_name: string | null
+  accuracy: number | null
+  recorded_at: string
+}
+
+export interface SiteSetting {
+  key: string
+  value: Record<string, unknown>
+  updated_at: string
+}
+
+export interface TripBuild {
+  id: string
+  user_id: string | null
+  trip_type: TripType
+  travelers: number
+  preferences: Record<string, unknown>
+  soma_thread: Array<{ role: string; content: string }>
+  draft_itinerary: ItineraryDay[] | null
+  status: 'building' | 'reviewing' | 'confirmed'
+  created_at: string
+  updated_at: string
 }

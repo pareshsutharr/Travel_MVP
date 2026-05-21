@@ -88,7 +88,7 @@ export default function StoryLineSection({ journeys }: Props) {
             </h2>
           </div>
           <a
-            href="#"
+            href="/journeys"
             className="text-sm tracking-widest uppercase transition-opacity hover:opacity-70 flex-shrink-0"
             style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#B89A4E', letterSpacing: '0.15em' }}
           >
@@ -180,8 +180,9 @@ export default function StoryLineSection({ journeys }: Props) {
           </h3>
           <div className="flex flex-wrap gap-3">
             {categories.map((cat) => (
-              <button
+              <a
                 key={cat.label}
+                href={`/journeys?category=${cat.label.toLowerCase()}`}
                 className="px-5 py-3 rounded-lg text-sm transition-all duration-200 hover:border-[#B89A4E] hover:text-[#B89A4E] group"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -192,7 +193,7 @@ export default function StoryLineSection({ journeys }: Props) {
               >
                 <span className="font-medium">{cat.label}</span>
                 <span className="ml-2 text-xs" style={{ color: '#9C9589' }}>· {cat.count}</span>
-              </button>
+              </a>
             ))}
           </div>
         </div>

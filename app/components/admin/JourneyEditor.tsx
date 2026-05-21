@@ -33,6 +33,10 @@ export default function JourneyEditor({ journey }: { journey: Journey }) {
       description: form.description,
       status: form.status,
       featured: form.featured,
+      difficulty: form.difficulty,
+      best_season: form.best_season,
+      max_travelers: form.max_travelers,
+      image_url: form.image_url,
       highlights,
       itinerary,
       included,
@@ -59,6 +63,12 @@ export default function JourneyEditor({ journey }: { journey: Journey }) {
           </div>
           <div><label className={labelClass}>Route</label><input className={inputClass} value={form.route} onChange={(e) => setField('route', e.target.value)} /></div>
           <div><label className={labelClass}>Description</label><textarea rows={4} className={inputClass} value={form.description ?? ''} onChange={(e) => setField('description', e.target.value)} /></div>
+          <div className="grid grid-cols-3 gap-4">
+            <div><label className={labelClass}>Difficulty</label><select className={inputClass} value={form.difficulty ?? 'moderate'} onChange={(e) => setField('difficulty', e.target.value)}>{['easy', 'moderate', 'challenging'].map((d) => <option key={d}>{d}</option>)}</select></div>
+            <div><label className={labelClass}>Best season</label><input className={inputClass} value={form.best_season ?? ''} onChange={(e) => setField('best_season', e.target.value || null)} placeholder="Oct – Mar" /></div>
+            <div><label className={labelClass}>Max travelers</label><input type="number" min={1} className={inputClass} value={form.max_travelers ?? 12} onChange={(e) => setField('max_travelers', Number(e.target.value))} /></div>
+          </div>
+          <div><label className={labelClass}>Cover image URL</label><input className={inputClass} value={form.image_url ?? ''} onChange={(e) => setField('image_url', e.target.value || null)} placeholder="https://…" /></div>
           <label className="flex items-center gap-2 text-sm text-[#1C1917]"><input type="checkbox" checked={form.featured} onChange={(e) => setField('featured', e.target.checked)} /> Featured</label>
         </div>
       </div>

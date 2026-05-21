@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Trash2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import type { ItineraryDay, JourneyCategory, JourneyStatus } from '@/types/database'
+import type { ItineraryDay, JourneyCategory, JourneyDifficulty, JourneyStatus } from '@/types/database'
 
 const labelClass = 'block text-[10px] tracking-widest uppercase text-[#9C9589] mb-1.5'
 const inputClass = 'w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2.5 text-sm text-[#1C1917] outline-none focus:border-[#B89A4E]'
@@ -25,6 +25,10 @@ export default function NewJourneyForm() {
   const [price, setPrice] = useState(4500)
   const [description, setDescription] = useState('')
   const [featured, setFeatured] = useState(false)
+  const [difficulty, setDifficulty] = useState<JourneyDifficulty>('moderate')
+  const [bestSeason, setBestSeason] = useState('')
+  const [maxTravelers, setMaxTravelers] = useState(12)
+  const [imageUrl, setImageUrl] = useState('')
   const [highlights, setHighlights] = useState<string[]>([''])
   const [included, setIncluded] = useState<string[]>(['Flights', 'Stays', 'Cabs', 'Visa support', 'SIM', 'Insurance'])
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([
@@ -50,6 +54,10 @@ export default function NewJourneyForm() {
         included: included.filter(Boolean),
         status,
         featured,
+        difficulty,
+        best_season: bestSeason || null,
+        max_travelers: maxTravelers,
+        image_url: imageUrl || null,
       })
       .select('id')
       .single()
@@ -80,6 +88,12 @@ export default function NewJourneyForm() {
           </div>
           <div><label className={labelClass}>Route</label><input className={inputClass} value={route} onChange={(event) => setRoute(event.target.value)} /></div>
           <div><label className={labelClass}>Description</label><textarea className={inputClass} rows={4} value={description} onChange={(event) => setDescription(event.target.value)} /></div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div><label className={labelClass}>Difficulty</label><select className={inputClass} value={difficulty} onChange={(e) => setDifficulty(e.target.value as JourneyDifficulty)}>{['easy', 'moderate', 'challenging'].map((d) => <option key={d}>{d}</option>)}</select></div>
+            <div><label className={labelClass}>Best season</label><input className={inputClass} value={bestSeason} onChange={(e) => setBestSeason(e.target.value)} placeholder="Oct – Mar" /></div>
+            <div><label className={labelClass}>Max travelers</label><input type="number" min={1} className={inputClass} value={maxTravelers} onChange={(e) => setMaxTravelers(Number(e.target.value))} /></div>
+          </div>
+          <div><label className={labelClass}>Cover image URL (optional)</label><input className={inputClass} value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://…" /></div>
           <label className="flex items-center gap-2 text-sm text-[#1C1917]"><input type="checkbox" checked={featured} onChange={(event) => setFeatured(event.target.checked)} /> Feature on public website</label>
         </div>
       </div>

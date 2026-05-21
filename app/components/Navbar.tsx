@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -21,7 +22,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex flex-col items-start flex-shrink-0">
+          <Link href="/" className="flex flex-col items-start flex-shrink-0">
             <div className="flex items-center gap-2">
               <div
                 className="w-7 h-7 rounded-full flex items-center justify-center"
@@ -47,7 +48,7 @@ export default function Navbar() {
             >
               Travel · India &amp; Nepal
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-8">
@@ -65,13 +66,15 @@ export default function Navbar() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <button
+            <Link
+              href="/sign-in"
               className="text-sm px-4 py-2 rounded-full transition-colors duration-200 hover:bg-gray-50"
               style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#1C1917', fontWeight: 400 }}
             >
               Sign in
-            </button>
-            <button
+            </Link>
+            <Link
+              href="/build/type"
               className="text-sm px-5 py-2 rounded-full transition-all duration-200 hover:bg-[#B89A4E] hover:text-white"
               style={{
                 fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -81,7 +84,7 @@ export default function Navbar() {
               }}
             >
               Begin →
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Hamburger */}
@@ -124,13 +127,17 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="flex gap-3 pt-2">
-                <button
+                <Link
+                  href="/sign-in"
+                  onClick={() => setMenuOpen(false)}
                   className="text-sm px-4 py-2 rounded-full"
                   style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#1C1917', border: '1px solid #E8E3D9' }}
                 >
                   Sign in
-                </button>
-                <button
+                </Link>
+                <Link
+                  href="/build/type"
+                  onClick={() => setMenuOpen(false)}
                   className="text-sm px-5 py-2 rounded-full"
                   style={{
                     fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -139,7 +146,7 @@ export default function Navbar() {
                   }}
                 >
                   Begin →
-                </button>
+                </Link>
               </div>
             </div>
           </div>

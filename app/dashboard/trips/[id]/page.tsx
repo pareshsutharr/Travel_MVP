@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { CircleDollarSign, Languages, MapPinned, MessageCircle, Phone, Shield, Utensils, UserCheck } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import PulsingDot from '@/app/components/user/PulsingDot'
@@ -22,15 +23,15 @@ export default async function TripDetail({ params }: { params: Promise<{ id: str
         <div className="mt-6 rounded-xl border border-[#E8E3D9] bg-white p-5">{['5:30 Boat at Assi Ghat', '6:30 Aarti with guide Rajesh', '9:00 Breakfast and rest', '11:00 Sarnath day trip'].map((item, index) => <div key={item} className="flex gap-4 border-b border-[#E8E3D9] py-3 last:border-0"><span className="font-mono text-xs text-[#9C9589]">{item.slice(0, 4)}</span><span className={`text-sm ${index === 1 ? 'text-[#B89A4E]' : 'text-[#1C1917]'}`}>{item.slice(5)}</span></div>)}</div>
         <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
-            [MessageCircle, 'Counsel', 'Message Soma or your Solura counsellor.'],
-            [CircleDollarSign, '₹ / NPR / $', 'Live travel money conversion.'],
-            [Shield, 'SOS', '24/7 emergency support and insurance help.'],
-            [Utensils, 'Eat', 'Food and lodge speciality recommendations.'],
-            [UserCheck, 'Guide', 'Local guide booking if needed.'],
-            [Languages, 'Language', 'SIM and language assistance.'],
-            [MapPinned, 'Tracker', 'GPS visible to destination manager.'],
-            [Phone, 'Manager', 'Call your destination manager.'],
-          ].map(([Icon, label, copy]) => { const I = Icon as typeof MessageCircle; return <button key={String(label)} className="rounded-xl border border-[#E8E3D9] bg-white p-4 text-left text-sm text-[#1C1917] hover:border-[#B89A4E]"><I className="mb-2 text-[#B89A4E]" size={18} /><span className="block font-medium">{String(label)}</span><span className="mt-1 block text-xs leading-5 text-[#9C9589]">{String(copy)}</span></button> })}
+            [MessageCircle, 'Counsel', 'Message Soma or your Solura counsellor.', '/dashboard/counsel'],
+            [CircleDollarSign, '₹ / NPR / $', 'Live travel money conversion.', '/dashboard/documents'],
+            [Shield, 'SOS', '24/7 emergency support and insurance help.', '/dashboard/counsel'],
+            [Utensils, 'Eat', 'Food and lodge speciality recommendations.', '/dashboard/counsel'],
+            [UserCheck, 'Guide', 'Local guide booking if needed.', '/dashboard/counsel'],
+            [Languages, 'Language', 'SIM and language assistance.', '/dashboard/documents'],
+            [MapPinned, 'Tracker', 'GPS visible to destination manager.', `/dashboard/trips/${booking.id}`],
+            [Phone, 'Manager', 'Call your destination manager.', '/dashboard/counsel'],
+          ].map(([Icon, label, copy, href]) => { const I = Icon as typeof MessageCircle; return <Link key={String(label)} href={String(href)} className="rounded-xl border border-[#E8E3D9] bg-white p-4 text-left text-sm text-[#1C1917] hover:border-[#B89A4E]"><I className="mb-2 text-[#B89A4E]" size={18} /><span className="block font-medium">{String(label)}</span><span className="mt-1 block text-xs leading-5 text-[#9C9589]">{String(copy)}</span></Link> })}
         </div>
         <div className="mt-5 rounded-xl border border-[#E8E3D9] bg-[#F5F0E8] p-5">
           <p className="text-[10px] uppercase tracking-widest text-[#B89A4E]">Destination manager note</p>

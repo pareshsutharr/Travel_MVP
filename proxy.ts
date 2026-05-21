@@ -29,11 +29,19 @@ export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   if (path.startsWith('/dashboard') || path.startsWith('/build')) {
-    if (!user) return NextResponse.redirect(new URL('/sign-in', request.url))
+    if (!user) {
+      const redirectUrl = new URL('/sign-in', request.url)
+      redirectUrl.searchParams.set('next', `${request.nextUrl.pathname}${request.nextUrl.search}`)
+      return NextResponse.redirect(redirectUrl)
+    }
   }
 
   if (path.startsWith('/admin')) {
-    if (!user) return NextResponse.redirect(new URL('/sign-in', request.url))
+    if (!user) {
+      const redirectUrl = new URL('/sign-in', request.url)
+      redirectUrl.searchParams.set('next', `${request.nextUrl.pathname}${request.nextUrl.search}`)
+      return NextResponse.redirect(redirectUrl)
+    }
 
     const { data: profile } = await supabase
       .from('profiles')

@@ -1,8 +1,24 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { formatCurrency, getStatusColor, getStatusLabel } from '@/lib/utils'
-import { Search, CheckCircle } from 'lucide-react'
+import { formatCurrency } from '@/lib/utils'
+import { CheckCircle, Search } from 'lucide-react'
+import LiveGpsTracker from '@/app/components/admin/LiveGpsTracker'
+import RevenueChart from '@/app/components/admin/RevenueChart'
+import type { Booking, Journey, Profile } from '@/types/database'
+
+type BookingRow = Booking & { journey: Pick<Journey, 'title' | 'duration'> | null; user: Pick<Profile, 'full_name'> | null }
+
+function buildMonthlyData(bookings: { created_at: string; total_amount: number }[]) {
+  const now = new Date()
+  return Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1)
+    const label = d.toLocaleDateString('en-US', { month: 'short' })
+    const monthStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const rows = bookings.filter((b) => b.created_at.startsWith(monthStr))
+    return { month: label, bookings: rows.length, revenue: rows.reduce((s, b) => s + (b.total_amount ?? 0), 0) }
+  })
+}
 
 export default async function AdminDashboard() {
   const supabase = await createClient()
@@ -14,19 +30,24 @@ export default async function AdminDashboard() {
   // Stats
   const { count: activeCount } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).in('status', ['on_path', 'delayed'])
   const { data: mtdData } = await supabase.from('bookings').select('total_amount').gte('created_at', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString())
-  const mtdTotal = mtdData?.reduce((sum, b) => sum + (b.total_amount ?? 0), 0) ?? 0
+  const mtdTotal = mtdData?.reduce((s, b) => s + (b.total_amount ?? 0), 0) ?? 0
   const mtdCount = mtdData?.length ?? 0
   const { count: newCustomers } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'user').gte('created_at', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString())
   const { data: npsData } = await supabase.from('profiles').select('nps').not('nps', 'is', null)
   const avgNps = npsData?.length ? Math.round(npsData.reduce((s, p) => s + (p.nps ?? 0), 0) / npsData.length) : 0
 
-  // Active bookings with joins
+  // Revenue chart data (6 months)
+  const sixMonthsAgo = new Date(); sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5); sixMonthsAgo.setDate(1)
+  const { data: allBookings } = await supabase.from('bookings').select('created_at, total_amount').gte('created_at', sixMonthsAgo.toISOString())
+  const chartData = buildMonthlyData(allBookings ?? [])
+
+  // Active bookings for realtime tracker
   const { data: activeBookings } = await supabase
     .from('bookings')
     .select('*, journey:journeys(title, duration), user:profiles!user_id(full_name)')
-    .in('status', ['on_path', 'delayed', 'confirmed'])
+    .in('status', ['on_path', 'delayed', 'confirmed', 'new'])
     .order('created_at', { ascending: false })
-    .limit(10)
+    .limit(12)
 
   // Journeys
   const { data: journeys } = await supabase.from('journeys').select('id, title, status, rating').order('sort_order').limit(6)
@@ -44,6 +65,12 @@ export default async function AdminDashboard() {
   const now = new Date()
   const dateLabel = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase()
 
+  // Total stats
+  const { count: totalBookings } = await supabase.from('bookings').select('*', { count: 'exact', head: true })
+  const { count: totalCustomers } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'user')
+  const { data: revenueData } = await supabase.from('bookings').select('total_amount').neq('status', 'cancelled')
+  const totalRevenue = revenueData?.reduce((s, b) => s + (b.total_amount ?? 0), 0) ?? 0
+
   return (
     <div className="px-8 py-8 min-h-full">
       {/* Header */}
@@ -57,17 +84,17 @@ export default async function AdminDashboard() {
         </div>
         <div className="relative">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9C9589]" />
-          <input className="pl-9 pr-4 py-2.5 bg-white border border-[#E8E3D9] rounded-full text-sm text-[#9C9589] w-64 focus:outline-none focus:border-[#B89A4E]" placeholder="Search bookings, customers… ⌘K" readOnly />
+          <input className="pl-9 pr-4 py-2.5 bg-white border border-[#E8E3D9] rounded-full text-sm text-[#9C9589] w-64 focus:outline-none focus:border-[#B89A4E]" placeholder="Search bookings, customers…" readOnly />
         </div>
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {[
-          { label: 'ACTIVE TRIPS', value: activeCount ?? 0, sub: '+3 this week' },
+          { label: 'ACTIVE TRIPS', value: activeCount ?? 0, sub: 'On path now' },
           { label: 'BOOKINGS · MTD', value: mtdCount, sub: `${formatCurrency(mtdTotal)} gross` },
-          { label: 'NEW CUSTOMERS', value: newCustomers ?? 0, sub: '24 from US/EU' },
-          { label: 'NPS · 90 DAY', value: avgNps, sub: `Up from ${avgNps - 3}` },
+          { label: 'NEW CUSTOMERS', value: newCustomers ?? 0, sub: 'This month' },
+          { label: 'NPS · 90 DAY', value: avgNps || '—', sub: 'Avg score' },
         ].map(s => (
           <div key={s.label} className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
             <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-2">{s.label}</p>
@@ -77,52 +104,55 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      {/* Main grid */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* LEFT: Live GPS */}
-        <div className="col-span-2 bg-white border border-[#E8E3D9] rounded-xl overflow-hidden">
-          <div className="px-6 py-5 border-b border-[#E8E3D9] flex items-center justify-between">
-            <div>
-              <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-0.5">LIVE · GPS</p>
-              <h2 className="font-serif text-xl text-[#1C1917]">Travellers on the path</h2>
-            </div>
-            <div className="flex gap-2">
-              {['All', 'India', 'Nepal'].map(t => (
-                <button key={t} className={`text-xs px-3 py-1 rounded-full border transition-colors ${t === 'All' ? 'border-[#B89A4E] text-[#B89A4E] bg-[#F5F0E8]' : 'border-[#E8E3D9] text-[#9C9589] hover:border-[#B89A4E]'}`}>{t}</button>
-              ))}
-            </div>
+      {/* Secondary stats */}
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        {[
+          { label: 'TOTAL BOOKINGS', value: totalBookings ?? 0 },
+          { label: 'TOTAL CUSTOMERS', value: totalCustomers ?? 0 },
+          { label: 'TOTAL REVENUE', value: formatCurrency(totalRevenue) },
+        ].map(s => (
+          <div key={s.label} className="bg-[#F5F0E8] border border-[#E8E3D9] rounded-xl px-5 py-4 flex items-center justify-between">
+            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase">{s.label}</p>
+            <p className="font-serif text-2xl text-[#B89A4E]">{s.value}</p>
           </div>
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-[#E8E3D9]">
-                {['TRAVELLER', 'JOURNEY', 'WHERE', 'DAY', 'STATUS'].map(h => (
-                  <th key={h} className="px-6 py-3 text-left text-[10px] tracking-widest text-[#9C9589] uppercase font-normal">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {activeBookings?.map(b => {
-                const journey = b.journey as { title: string; duration: number } | null
-                return (
-                  <tr key={b.id} className="border-b border-[#E8E3D9] hover:bg-[#FAFAF8] transition-colors">
-                    <td className="px-6 py-4 text-sm font-medium text-[#1C1917]">{b.traveler_name}</td>
-                    <td className="px-6 py-4 text-sm text-[#9C9589]">{journey?.title}</td>
-                    <td className="px-6 py-4 text-sm text-[#9C9589]">{b.current_location ?? '—'}</td>
-                    <td className="px-6 py-4 text-sm text-[#9C9589]">{b.current_day ? `${b.current_day} / ${journey?.duration}` : '—'}</td>
-                    <td className="px-6 py-4"><span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getStatusColor(b.status)}`}>{getStatusLabel(b.status)}</span></td>
-                  </tr>
-                )
-              })}
-              {(!activeBookings || activeBookings.length === 0) && (
-                <tr><td colSpan={5} className="px-6 py-8 text-center text-sm text-[#9C9589]">No active travellers</td></tr>
-              )}
-            </tbody>
-          </table>
+        ))}
+      </div>
+
+      {/* Revenue chart + sidebar */}
+      <div className="grid grid-cols-3 gap-6 mb-6">
+        <div className="col-span-2">
+          <RevenueChart data={chartData} />
         </div>
+        <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
+          <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-1">QUICK ACTIONS</p>
+          <h3 className="font-serif text-lg text-[#1C1917] mb-4">Manage</h3>
+          <div className="space-y-2">
+            {[
+              { label: 'Add new journey', href: '/admin/storyline/new', sub: 'Create story' },
+              { label: 'Manage bookings', href: '/admin/bookings', sub: `${totalBookings} total` },
+              { label: 'Customer list', href: '/admin/customers', sub: `${totalCustomers} travellers` },
+              { label: 'User roles', href: '/admin/users', sub: 'Admins & staff' },
+              { label: 'Open counsel inbox', href: '/admin/counsel', sub: `${unreadCount ?? 0} unread` },
+              { label: 'Site settings', href: '/admin/settings', sub: 'Configure' },
+            ].map(item => (
+              <Link key={item.href} href={item.href} className="flex items-center justify-between py-2.5 border-b border-[#E8E3D9] last:border-0 hover:text-[#B89A4E] group">
+                <div>
+                  <p className="text-sm text-[#1C1917] group-hover:text-[#B89A4E] transition-colors">{item.label}</p>
+                  <p className="text-[10px] text-[#9C9589]">{item.sub}</p>
+                </div>
+                <span className="text-[#B89A4E] text-sm">→</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main grid: Live GPS + Counsel */}
+      <div className="grid grid-cols-3 gap-6">
+        <LiveGpsTracker initial={(activeBookings ?? []) as BookingRow[]} />
 
         {/* RIGHT: Story Line + Counsel */}
         <div className="space-y-4">
-          {/* Story Line */}
           <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -140,13 +170,11 @@ export default async function AdminDashboard() {
                 </div>
               ))}
             </div>
+            <Link href="/admin/storyline/new" className="mt-4 block text-xs text-[#B89A4E] hover:underline">+ New journey →</Link>
           </div>
 
-          {/* Counsellor Desk */}
           <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-[10px] tracking-widest text-[#9C9589] uppercase">COUNSELLOR DESK</p>
-            </div>
+            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase">COUNSELLOR DESK</p>
             <h3 className="font-serif text-lg text-[#1C1917] mb-4">{unreadCount ?? 0} messages need you</h3>
             <div className="space-y-3">
               {unreadMessages?.map(m => {

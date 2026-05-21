@@ -1,4 +1,5 @@
 import { travelImages } from '@/lib/travel-images'
+import Link from 'next/link'
 
 export default function HeroSection() {
   const photoCards = [
@@ -61,7 +62,8 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button
+              <Link
+                href="/build/type"
                 className="px-6 py-3 rounded-full text-sm transition-all duration-200 hover:bg-ink hover:text-white"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -71,8 +73,9 @@ export default function HeroSection() {
                 }}
               >
                 Talk with Soma →
-              </button>
-              <button
+              </Link>
+              <Link
+                href="#storyline"
                 className="px-6 py-3 rounded-full text-sm text-white transition-all duration-200 hover:opacity-90"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -81,7 +84,7 @@ export default function HeroSection() {
                 }}
               >
                 See the Story Line
-              </button>
+              </Link>
             </div>
 
             {/* Trust Row */}

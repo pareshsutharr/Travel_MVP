@@ -11,11 +11,14 @@ export default function SignInPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [nextPath, setNextPath] = useState('/dashboard')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const authError = params.get('error_description')
     if (authError) setError(authError)
+    const next = params.get('next')
+    if (next?.startsWith('/') && !next.startsWith('//')) setNextPath(next)
   }, [])
 
   async function handleSubmit(e: React.FormEvent) {
@@ -30,7 +33,7 @@ export default function SignInPage() {
     if (profile?.role === 'admin' || profile?.role === 'counsellor') {
       router.push('/admin')
     } else {
-      router.push('/dashboard')
+      router.push(nextPath)
     }
     router.refresh()
   }
@@ -54,7 +57,7 @@ export default function SignInPage() {
           <h1 className="font-serif text-3xl text-[#1C1917] mb-1">Welcome back.</h1>
           <p className="text-sm text-[#9C9589] mb-8">Sign in to continue your journey.</p>
 
-          <GoogleAuthButton label="Sign in with Google" />
+          <GoogleAuthButton label="Sign in with Google" next={nextPath} />
 
           <div className="my-6 flex items-center gap-3">
             <div className="h-px flex-1 bg-[#E8E3D9]" />
