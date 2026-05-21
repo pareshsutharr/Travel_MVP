@@ -20,16 +20,16 @@ export default async function JourneyDetail({ params }: { params: Promise<{ slug
     <>
       <Navbar />
       <main className="bg-[#FAFAF8] pt-16">
-        <section className="relative flex h-[420px] items-end overflow-hidden p-8">
+        <section className="relative flex h-[280px] sm:h-[420px] items-end overflow-hidden p-5 sm:p-8">
           <img src={getJourneyImage(journey)} alt={journey.title} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1C1917]/75 via-[#1C1917]/25 to-transparent" />
           <div className="relative mx-auto w-full max-w-6xl">
             <p className="text-xs uppercase tracking-widest text-white/80">{journey.category}</p>
-            <h1 className="font-serif text-6xl text-white">{journey.title}</h1>
+            <h1 className="font-serif text-4xl sm:text-6xl text-white leading-tight">{journey.title}</h1>
             <p className="text-white/75">{journey.route}</p>
           </div>
         </section>
-        <section className="mx-auto grid max-w-6xl gap-8 px-6 py-14 lg:grid-cols-3">
+        <section className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 py-10 sm:py-14 lg:grid-cols-3">
           <article className="space-y-10 lg:col-span-2">
             <div><h2 className="font-serif text-3xl text-[#1C1917]">{journey.subtitle}</h2><p className="mt-4 leading-7 text-[#6f6a61]">{journey.description}</p></div>
             <div><h3 className="mb-4 font-serif text-2xl text-[#1C1917]">Highlights</h3>{journey.highlights.map((item, index) => <p key={item} className="border-t border-[#E8E3D9] py-3 text-sm text-[#1C1917]"><span className="mr-4 font-serif text-xl text-[#B89A4E]">{index + 1}</span>{item}</p>)}</div>

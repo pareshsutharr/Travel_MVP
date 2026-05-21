@@ -17,8 +17,8 @@ export default async function AdminBookings() {
   const total = bookings.reduce((sum, booking) => sum + booking.total_amount, 0)
 
   return (
-    <div className="px-8 py-8">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="px-4 sm:px-8 py-6 sm:py-8">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h1 className="font-serif text-3xl text-[#1C1917]">{bookings.length} live · <span className="italic text-[#B89A4E]">{formatCurrency(total)} managed</span></h1>
         <Link href="/build/type" className="flex items-center gap-2 rounded-full bg-[#B89A4E] px-4 py-2 text-sm text-white hover:bg-[#8B6914]"><Plus size={14} /> New booking</Link>
       </div>

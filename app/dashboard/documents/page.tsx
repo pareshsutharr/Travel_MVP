@@ -26,7 +26,7 @@ export default function DocumentsPage() {
   const converted = useMemo(() => amount * (currency === 'INR' ? 83.42 : 134.15), [amount, currency])
 
   return (
-    <div className="px-8 py-8">
+    <div className="px-4 sm:px-8 py-6 sm:py-8">
       <h1 className="mb-6 font-serif text-3xl text-[#1C1917]">Documents & Money</h1>
       <div className="grid gap-5 lg:grid-cols-2">
         <section className="rounded-xl border border-[#E8E3D9] bg-white p-6"><h2 className="mb-4 font-serif text-xl text-[#1C1917]">Visas, passports, SIM</h2>{documents.map((doc) => <div key={doc.id} className="flex items-center justify-between border-t border-[#E8E3D9] py-4"><div><p className="text-sm font-medium text-[#1C1917]">{doc.name}</p><p className="text-xs capitalize text-[#9C9589]">{doc.type} · expires {doc.expiry_date ?? 'n/a'}</p></div><span className={`rounded-full px-2.5 py-0.5 text-xs ${doc.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>{doc.status}</span></div>)}{documents.length === 0 && <p className="text-sm text-[#9C9589]">Soma will show passport, visa, insurance and SIM status after booking.</p>}</section>

@@ -19,14 +19,14 @@ export default async function JourneysPage({ searchParams }: { searchParams: Pro
   return (
     <>
       <Navbar />
-      <main className="bg-[#FAFAF8] px-6 py-28">
+      <main className="bg-[#FAFAF8] px-4 sm:px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-xs uppercase tracking-widest text-[#B89A4E]">The Story Line</p>
-          <h1 className="font-serif text-5xl text-[#1C1917]">Journeys, <span className="italic text-[#B89A4E]">not packages.</span></h1>
-          <div className="my-8 flex gap-6 border-b border-[#E8E3D9]">
-            {categories.map((item) => <Link key={item} href={item === 'all' ? '/journeys' : `/journeys?category=${item}`} className={`pb-3 text-sm capitalize ${(!category && item === 'all') || category === item ? 'border-b-2 border-[#B89A4E] text-[#B89A4E]' : 'text-[#9C9589]'}`}>{item}</Link>)}
+          <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1917]">Journeys, <span className="italic text-[#B89A4E]">not packages.</span></h1>
+          <div className="my-8 flex gap-4 sm:gap-6 border-b border-[#E8E3D9] overflow-x-auto pb-px">
+            {categories.map((item) => <Link key={item} href={item === 'all' ? '/journeys' : `/journeys?category=${item}`} className={`pb-3 text-sm capitalize whitespace-nowrap flex-shrink-0 ${(!category && item === 'all') || category === item ? 'border-b-2 border-[#B89A4E] text-[#B89A4E]' : 'text-[#9C9589]'}`}>{item}</Link>)}
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {journeys.map((journey) => <Link key={journey.id} href={`/journeys/${journey.slug}`} className="overflow-hidden rounded-xl border border-[#E8E3D9] bg-white hover:border-[#B89A4E]">
               <div className="relative flex h-48 items-end overflow-hidden p-4">
                 <img src={getJourneyImage(journey)} alt={journey.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105" />

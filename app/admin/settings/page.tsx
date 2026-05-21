@@ -39,13 +39,13 @@ export default async function AdminSettings() {
   ]
 
   return (
-    <div className="max-w-4xl px-8 py-8">
-      <div className="mb-8">
+    <div className="max-w-4xl px-4 sm:px-8 py-6 sm:py-8">
+      <div className="mb-8 px-0">
         <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-1">Super Admin</p>
-        <h1 className="font-serif text-3xl text-[#1C1917]">Settings</h1>
+        <h1 className="font-serif text-2xl sm:text-3xl text-[#1C1917]">Settings</h1>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <AdminSettingsForm initial={settings} />
         </div>

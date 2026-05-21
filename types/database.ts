@@ -6,6 +6,16 @@ export type JourneyCategory = 'spiritual' | 'heritage' | 'adventure' | 'wellness
 export type DocumentType = 'passport' | 'visa' | 'insurance' | 'sim'
 export type DocumentStatus = 'pending' | 'active' | 'expired'
 export type SenderType = 'user' | 'counsellor' | 'soma'
+export type JourneyDifficulty = 'easy' | 'moderate' | 'challenging'
+export type GuideBookingStatus = 'pending' | 'confirmed' | 'cancelled'
+export type NotificationType = 'info' | 'booking' | 'message' | 'sos' | 'document' | 'guide'
+export type SosStatus = 'active' | 'responded' | 'resolved'
+export type FlightClass = 'economy' | 'premium_economy' | 'business'
+export type FlightSource = 'makemytrip' | 'booking_com' | 'skyscanner' | 'direct'
+export type HotelType = 'hotel' | 'boutique' | 'lodge' | 'airbnb' | 'guesthouse'
+export type HotelSource = 'airbnb' | 'makemytrip' | 'booking_com' | 'direct'
+export type FoodType = 'restaurant' | 'cafe' | 'street_food' | 'lodge' | 'dhaba'
+export type PriceRange = '$' | '$$' | '$$$'
 
 export interface Profile {
   id: string
@@ -21,11 +31,11 @@ export interface Profile {
   nps: number | null
   journeys_count: number
   cities_count: number
+  destination_manager_id: string | null
   created_at: string
   updated_at: string
+  destination_manager?: Profile
 }
-
-export type JourneyDifficulty = 'easy' | 'moderate' | 'challenging'
 
 export interface Journey {
   id: string
@@ -84,6 +94,8 @@ export interface Booking {
   guide_cost: number | null
   flight_details: Record<string, unknown> | null
   stays_details: Record<string, unknown> | null
+  cab_details: Record<string, unknown> | null
+  food_preferences: string | null
   current_day: number | null
   current_location: string | null
   gps_lat: number | null
@@ -94,7 +106,6 @@ export interface Booking {
   notes: string | null
   created_at: string
   updated_at: string
-  // joined
   journey?: Journey
   user?: Profile
   counsellor?: Profile
@@ -103,12 +114,12 @@ export interface Booking {
 export interface Message {
   id: string
   booking_id: string | null
+  thread_user_id: string | null
   sender_id: string
   sender_type: SenderType
   content: string
   is_read: boolean
   created_at: string
-  // joined
   sender?: Profile
   booking?: Booking
 }
@@ -132,6 +143,7 @@ export interface Document {
   name: string
   status: DocumentStatus
   expiry_date: string | null
+  file_url: string | null
   created_at: string
   updated_at: string
 }
@@ -174,4 +186,116 @@ export interface TripBuild {
   status: 'building' | 'reviewing' | 'confirmed'
   created_at: string
   updated_at: string
+}
+
+export interface Guide {
+  id: string
+  name: string
+  location: string
+  country: string
+  languages: string[]
+  specializations: string[]
+  bio: string | null
+  price_per_day: number
+  rating: number
+  review_count: number
+  phone: string | null
+  whatsapp: string | null
+  is_available: boolean
+  is_featured: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface GuideBooking {
+  id: string
+  guide_id: string
+  user_id: string
+  booking_id: string | null
+  start_date: string
+  days: number
+  amount_usd: number
+  status: GuideBookingStatus
+  notes: string | null
+  created_at: string
+  guide?: Guide
+}
+
+export interface SosEvent {
+  id: string
+  user_id: string
+  booking_id: string | null
+  lat: number | null
+  lng: number | null
+  location_name: string | null
+  message: string | null
+  status: SosStatus
+  resolved_at: string | null
+  resolved_by: string | null
+  created_at: string
+}
+
+export interface Notification {
+  id: string
+  user_id: string
+  title: string
+  body: string
+  type: NotificationType
+  link: string | null
+  is_read: boolean
+  created_at: string
+}
+
+export interface FlightSuggestion {
+  id: string
+  route_tag: string
+  from_city: string
+  from_airport: string
+  to_city: string
+  to_airport: string
+  airline: string
+  duration_minutes: number | null
+  price_usd: number
+  class: FlightClass
+  stops: number
+  source: FlightSource
+  external_url: string | null
+  is_recommended: boolean
+  created_at: string
+}
+
+export interface HotelSuggestion {
+  id: string
+  city: string
+  country: string
+  route_tag: string | null
+  name: string
+  address: string | null
+  price_per_night_usd: number
+  total_nights: number
+  rating: number
+  type: HotelType
+  source: HotelSource
+  external_url: string | null
+  image_url: string | null
+  amenities: string[]
+  is_recommended: boolean
+  created_at: string
+}
+
+export interface FoodRecommendation {
+  id: string
+  city: string
+  country: string
+  name: string
+  type: FoodType
+  cuisine: string | null
+  speciality: string
+  price_range: PriceRange
+  address: string | null
+  rating: number
+  tags: string[]
+  image_url: string | null
+  is_vegetarian: boolean
+  created_at: string
 }

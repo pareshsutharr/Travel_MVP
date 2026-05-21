@@ -10,10 +10,10 @@ export default async function AdminCustomers() {
   const value = customers.reduce((sum, customer) => sum + customer.lifetime_value, 0)
 
   return (
-    <div className="px-8 py-8">
-      <h1 className="mb-6 font-serif text-3xl text-[#1C1917]">{customers.length} customers · <span className="italic text-[#B89A4E]">{formatCurrency(value)} lifetime value</span></h1>
-      <div className="overflow-hidden rounded-xl border border-[#E8E3D9] bg-white">
-        <table className="w-full">
+    <div className="px-4 sm:px-8 py-6 sm:py-8">
+      <h1 className="mb-6 font-serif text-2xl sm:text-3xl text-[#1C1917]">{customers.length} customers · <span className="italic text-[#B89A4E]">{formatCurrency(value)} lifetime value</span></h1>
+      <div className="overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white">
+        <table className="w-full min-w-[700px]">
           <thead className="bg-[#FAFAF8]"><tr>{['CUSTOMER', 'JOURNEYS', 'CITIES', 'LIFETIME VALUE', 'NPS', 'MEMBER SINCE', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-[#9C9589]">{h}</th>)}</tr></thead>
           <tbody>{customers.map((customer) => (
             <tr key={customer.id} className="border-t border-[#E8E3D9] hover:bg-[#FAFAF8]">

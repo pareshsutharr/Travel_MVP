@@ -14,7 +14,10 @@
       "mcp__claude_ai_Supabase__apply_migration",
       "mcp__claude_ai_Supabase__execute_sql",
       "Bash(npm install *)",
-      "mcp__claude_ai_Supabase__list_tables"
+      "mcp__claude_ai_Supabase__list_tables",
+      "Bash(sed -i '' 's/className=\"mb-5 grid gap-3 md:grid-cols-4\"/className=\"mb-5 grid grid-cols-2 gap-3 md:grid-cols-4\"/' \"/Users/pareshsuthar/Desktop/travel client/codebase-solura/app/admin/storyline/page.tsx\")",
+      "Bash(sed -i '' 's/className=\"px-8 py-8\"/className=\"px-4 sm:px-8 py-6 sm:py-8\"/' \"/Users/pareshsuthar/Desktop/travel client/codebase-solura/app/admin/storyline/page.tsx\")",
+      "Bash(sed -i '' 's/className=\"overflow-hidden rounded-xl border border-\\\\[#E8E3D9\\\\] bg-white\">/className=\"overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white\">/' \"/Users/pareshsuthar/Desktop/travel client/codebase-solura/app/admin/storyline/page.tsx\")"
     ],
     "additionalDirectories": [
       "/Users/pareshsuthar/Desktop/travel client/codebase-solura/app"

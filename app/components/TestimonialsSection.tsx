@@ -20,7 +20,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="reviews"
-      className="py-24 px-6 lg:px-8"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: '#FAFAF8' }}
     >
       <div className="max-w-7xl mx-auto">
@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
             Reviews
           </p>
           <h2
-            className="text-4xl lg:text-5xl xl:text-6xl leading-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 400 }}
           >
             What the path{' '}
@@ -42,7 +42,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonial Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <div
               key={i}

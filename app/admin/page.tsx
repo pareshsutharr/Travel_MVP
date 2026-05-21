@@ -72,7 +72,7 @@ export default async function AdminDashboard() {
   const totalRevenue = revenueData?.reduce((s, b) => s + (b.total_amount ?? 0), 0) ?? 0
 
   return (
-    <div className="px-8 py-8 min-h-full">
+    <div className="px-4 sm:px-8 py-6 sm:py-8 min-h-full">
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
@@ -105,7 +105,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Secondary stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
           { label: 'TOTAL BOOKINGS', value: totalBookings ?? 0 },
           { label: 'TOTAL CUSTOMERS', value: totalCustomers ?? 0 },
@@ -119,7 +119,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Revenue chart + sidebar */}
-      <div className="grid grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <div className="col-span-2">
           <RevenueChart data={chartData} />
         </div>
@@ -148,7 +148,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Main grid: Live GPS + Counsel */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <LiveGpsTracker initial={(activeBookings ?? []) as BookingRow[]} />
 
         {/* RIGHT: Story Line + Counsel */}

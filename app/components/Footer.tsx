@@ -25,10 +25,10 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer style={{ backgroundColor: '#1C1917', color: '#FAFAF8' }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:grid-cols-5 lg:gap-8">
           {/* Logo & CTA Column */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="col-span-2 lg:col-span-2 flex flex-col gap-6">
             {/* Logo */}
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">

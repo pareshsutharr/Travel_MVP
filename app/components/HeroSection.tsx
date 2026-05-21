@@ -25,8 +25,8 @@ export default function HeroSection() {
       className="min-h-screen flex items-center pt-16"
       style={{ backgroundColor: '#FAFAF8' }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-16 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center min-h-[calc(100vh-4rem)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 lg:py-0">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center min-h-[calc(100vh-4rem)]">
           {/* Left: Text Content */}
           <div className="flex flex-col justify-center gap-8 lg:py-20">
             {/* Label */}
@@ -43,7 +43,7 @@ export default function HeroSection() {
 
             {/* Headline */}
             <h1
-              className="text-5xl lg:text-6xl xl:text-7xl leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight"
               style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 400 }}
             >
               The trip is the

@@ -47,8 +47,8 @@ export default function UserRoleManager({ users }: { users: Profile[] }) {
         <p className="text-xs text-[#9C9589]">Showing {filtered.length} of {users.length}</p>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#E8E3D9] bg-white">
-        <table className="w-full">
+      <div className="overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white">
+        <table className="w-full min-w-[640px]">
           <thead className="bg-[#FAFAF8]">
             <tr>
               {['USER', 'ROLE', 'LOCATION', 'JOURNEYS', 'VALUE', 'JOINED', 'MANAGE'].map((head) => (

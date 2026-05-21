@@ -35,12 +35,12 @@ const facilities = [
 
 export default function OneStopSolutionSection() {
   return (
-    <section className="bg-white px-6 py-24 lg:px-8">
+    <section className="bg-white px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <p className="mb-4 text-xs uppercase tracking-widest text-[#B89A4E]">One stop solution for travel</p>
-            <h2 className="font-serif text-5xl leading-tight text-[#1C1917]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight text-[#1C1917]">
               Spiritual journeys through <span className="italic text-[#B89A4E]">India and Nepal.</span>
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-[#6f6a61]">

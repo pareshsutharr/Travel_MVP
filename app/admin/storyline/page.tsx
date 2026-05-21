@@ -11,12 +11,12 @@ export default async function AdminStoryline() {
   const journeys = (data ?? []) as Journey[]
 
   return (
-    <div className="px-8 py-8">
+    <div className="px-4 sm:px-8 py-6 sm:py-8">
       <div className="mb-6 flex items-center justify-between">
         <div><h1 className="font-serif text-3xl text-[#1C1917]">Story Line <span className="italic text-[#B89A4E]">CMS</span></h1><p className="text-sm text-[#9C9589]">Drafts, reviews, routes and published stories.</p></div>
         <Link href="/admin/storyline/new" className="flex items-center gap-2 rounded-full bg-[#B89A4E] px-4 py-2 text-sm text-white hover:bg-[#8B6914]"><Plus size={14} /> New journey</Link>
       </div>
-      <div className="mb-5 grid gap-3 md:grid-cols-4">
+      <div className="mb-5 grid grid-cols-2 gap-3 md:grid-cols-4">
         {[
           ['All trips', journeys.length],
           ['Published', journeys.filter((journey) => journey.status === 'published').length],
@@ -29,7 +29,7 @@ export default async function AdminStoryline() {
           </div>
         ))}
       </div>
-      <div className="overflow-hidden rounded-xl border border-[#E8E3D9] bg-white">
+      <div className="overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white">
         <table className="w-full">
           <thead className="bg-[#FAFAF8]"><tr>{['TITLE', 'CATEGORY', 'DURATION', 'ROUTE', 'FROM', 'STATUS', 'RATING', 'MANAGE', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-[#9C9589]">{h}</th>)}</tr></thead>
           <tbody>{journeys.map((journey) => <tr key={journey.id} className="border-t border-[#E8E3D9] hover:bg-[#FAFAF8]">
