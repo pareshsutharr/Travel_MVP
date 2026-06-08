@@ -20,27 +20,27 @@ export default async function AdminCustomerDetail({ params }: { params: Promise<
 
   return (
     <div className="max-w-6xl px-8 py-8">
-      <Link href="/admin/customers" className="mb-6 flex items-center gap-2 text-sm text-[#9C9589] hover:text-[#1C1917]"><ArrowLeft size={14} /> Customers</Link>
+      <Link href="/admin/customers" className="mb-6 flex items-center gap-2 text-sm text-blue-slate hover:text-graphite"><ArrowLeft size={14} /> Customers</Link>
       <div className="grid grid-cols-3 gap-6">
         <main className="col-span-2 space-y-5">
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
+          <div className="rounded-xl border border-pale-sky bg-platinum p-6">
             <div className="flex items-start gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F5F0E8] font-serif text-2xl text-[#B89A4E]">{initials(customer.full_name ?? customer.email)}</div>
-              <div><h1 className="font-serif text-3xl text-[#1C1917]">{customer.full_name}</h1><p className="text-[10px] uppercase tracking-widest text-[#B89A4E]">Seeker · Since {new Date(customer.member_since).getFullYear()}</p><p className="mt-2 text-xs text-[#9C9589]">{customer.email} · {customer.phone ?? 'No phone'} · {customer.location ?? 'No location'}</p></div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pale-sky font-serif text-2xl text-metallic-gold">{initials(customer.full_name ?? customer.email)}</div>
+              <div><h1 className="font-serif text-3xl text-graphite">{customer.full_name}</h1><p className="text-[10px] uppercase tracking-widest text-metallic-gold">Seeker · Since {new Date(customer.member_since).getFullYear()}</p><p className="mt-2 text-xs text-blue-slate">{customer.email} · {customer.phone ?? 'No phone'} · {customer.location ?? 'No location'}</p></div>
             </div>
-            <div className="mt-6 grid grid-cols-4 gap-4 border-t border-[#E8E3D9] pt-5 text-center">{[
+            <div className="mt-6 grid grid-cols-4 gap-4 border-t border-pale-sky pt-5 text-center">{[
               [customer.journeys_count, 'JOURNEYS'], [formatCurrency(customer.lifetime_value), 'LIFETIME VALUE'], [customer.cities_count, 'CITIES'], [customer.nps ?? '-', 'NPS'],
-            ].map(([n, label]) => <div key={label}><p className="font-serif text-2xl text-[#1C1917]">{n}</p><p className="text-[10px] uppercase tracking-widest text-[#9C9589]">{label}</p></div>)}</div>
+            ].map(([n, label]) => <div key={label}><p className="font-serif text-2xl text-graphite">{n}</p><p className="text-[10px] uppercase tracking-widest text-blue-slate">{label}</p></div>)}</div>
           </div>
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-            <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Journeys</p>
-            <h2 className="mb-4 font-serif text-xl text-[#1C1917]">{bookings.length} with Solura · {bookings.reduce((sum, booking) => sum + (booking.journey?.duration ?? 0), 0)} days total</h2>
-            {bookings.map((booking) => <Link key={booking.id} href={`/admin/bookings/${booking.id}`} className="flex items-center justify-between border-t border-[#E8E3D9] py-4"><div><p className="text-sm font-medium text-[#1C1917]">{booking.journey?.title}</p><p className="text-xs text-[#9C9589]">{formatDate(booking.start_date)} · {booking.journey?.route}</p></div><span className={`rounded-full px-2.5 py-0.5 text-xs ${getStatusColor(booking.status)}`}>{getStatusLabel(booking.status)}</span></Link>)}
+          <div className="rounded-xl border border-pale-sky bg-platinum p-6">
+            <p className="text-[10px] uppercase tracking-widest text-blue-slate">Journeys</p>
+            <h2 className="mb-4 font-serif text-xl text-graphite">{bookings.length} with Solura · {bookings.reduce((sum, booking) => sum + (booking.journey?.duration ?? 0), 0)} days total</h2>
+            {bookings.map((booking) => <Link key={booking.id} href={`/admin/bookings/${booking.id}`} className="flex items-center justify-between border-t border-pale-sky py-4"><div><p className="text-sm font-medium text-graphite">{booking.journey?.title}</p><p className="text-xs text-blue-slate">{formatDate(booking.start_date)} · {booking.journey?.route}</p></div><span className={`rounded-full px-2.5 py-0.5 text-xs ${getStatusColor(booking.status)}`}>{getStatusLabel(booking.status)}</span></Link>)}
           </div>
         </main>
         <aside className="space-y-4">
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Travel preferences</p><div className="flex flex-wrap gap-2">{tags.length ? tags.map((tag) => <span key={tag} className="rounded-full bg-[#F5F0E8] px-3 py-1 text-xs capitalize text-[#1C1917]">{tag}</span>) : <p className="text-xs text-[#9C9589]">No preferences yet.</p>}</div></div>
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Counsellor notes</p><p className="text-sm italic leading-relaxed text-[#9C9589]">Prefers early mornings, slower routes, small temples over famous ones, and one-click travel baskets with documents handled ahead of arrival.</p></div>
+          <div className="rounded-xl border border-pale-sky bg-platinum p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Travel preferences</p><div className="flex flex-wrap gap-2">{tags.length ? tags.map((tag) => <span key={tag} className="rounded-full bg-pale-sky px-3 py-1 text-xs capitalize text-graphite">{tag}</span>) : <p className="text-xs text-blue-slate">No preferences yet.</p>}</div></div>
+          <div className="rounded-xl border border-pale-sky bg-platinum p-5"><p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Counsellor notes</p><p className="text-sm italic leading-relaxed text-blue-slate">Prefers early mornings, slower routes, small temples over famous ones, and one-click travel baskets with documents handled ahead of arrival.</p></div>
         </aside>
       </div>
     </div>

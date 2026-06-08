@@ -1,68 +1,54 @@
-import {
-  BadgeCheck,
-  Bot,
-  Building2,
-  Car,
-  CircleDollarSign,
-  FileCheck2,
-  Globe2,
-  Hotel,
-  Languages,
-  MapPinned,
-  Plane,
-  ShieldCheck,
-  Sparkles,
-  Utensils,
-  Users,
-} from 'lucide-react'
+import { Bot, Car, FileCheck2, Hotel, MapPinned, Plane } from 'lucide-react'
+import Link from 'next/link'
+import { travelImages } from '@/lib/travel-images'
 
 const facilities = [
-  { icon: Car, title: 'Cab reservations', copy: 'Airport transfers, intercity routes, daily cars and driver coordination.' },
-  { icon: FileCheck2, title: 'Visa / passport management', copy: 'Checklist, reminders, document status and traveller-ready visa support.' },
-  { icon: Languages, title: 'SIM and language assistance', copy: 'Arrival SIM guidance, local language help and destination-specific etiquette notes.' },
-  { icon: Plane, title: 'Flight suggestions', copy: 'Compare and suggest options from partners such as MakeMyTrip and Booking.com.' },
-  { icon: Hotel, title: 'Hotel suggestions', copy: 'Boutique stays, lodges and partner options from Airbnb, MakeMyTrip and Booking.com.' },
-  { icon: Utensils, title: 'Food and lodge recommendations', copy: 'Local specialities, trusted restaurants and stay notes for each city.' },
-  { icon: Bot, title: 'Soma chatbot', copy: 'Trip timing, dates, upcoming routes, daily questions and real-time suggestions.' },
-  { icon: Sparkles, title: 'AI recommendations', copy: 'Personal recommendations based on previous trips, wishlists and preferences.' },
-  { icon: Users, title: 'Solo / group / family trips', copy: 'Dedicated flows for solo seekers, couples, families and larger groups.' },
-  { icon: MapPinned, title: '24/7 GPS tracking', copy: 'Active trip map, day status, quick SOS and destination manager visibility.' },
-  { icon: ShieldCheck, title: 'Insurance bundled', copy: 'Travel, medical, delay and luggage coverage kept inside one total.' },
-  { icon: CircleDollarSign, title: 'Money conversion', copy: 'USD to INR/NPR conversion for India and Nepal spending clarity.' },
-  { icon: BadgeCheck, title: 'Guide booking', copy: 'Local guide matching when needed for spiritual, heritage and adventure routes.' },
-  { icon: Building2, title: 'Personal counsellor', copy: 'Company counsellor and destination manager assigned around user preferences.' },
+  { icon: Plane, title: 'Flights', copy: 'Routes compared and timed around your journey.' },
+  { icon: Hotel, title: 'Stays', copy: 'Characterful hotels and trusted local lodges.' },
+  { icon: Car, title: 'Private travel', copy: 'Airport transfers, drivers and intercity cars.' },
+  { icon: FileCheck2, title: 'Visas and documents', copy: 'Checklists, reminders and hands-on support.' },
+  { icon: Bot, title: 'Soma counsellor', copy: 'Personal guidance before and during your trip.' },
+  { icon: MapPinned, title: 'Live trip support', copy: '24/7 assistance, GPS and local coordination.' },
 ]
 
 export default function OneStopSolutionSection() {
   return (
-    <section className="bg-white px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div>
-            <p className="mb-4 text-xs uppercase tracking-widest text-[#B89A4E]">One stop solution for travel</p>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight text-[#1C1917]">
-              Spiritual journeys through <span className="italic text-[#B89A4E]">India and Nepal.</span>
-            </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[#6f6a61]">
-              Solura is built for travellers from Europe and America who want the depth of India and Nepal without managing the scattered work of flights, hotels, visas, cabs, guides, SIMs, insurance and local support.
-            </p>
-            <div className="mt-8 grid gap-3 text-sm text-[#1C1917] sm:grid-cols-2">
-              {['Target: India + Nepal', 'Customers: Europe + America', 'Focus: Spiritual journeys', 'Core: One-click travel basket'].map((item) => (
-                <div key={item} className="rounded-xl border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-3">
-                  {item}
-                </div>
-              ))}
+    <section className="bg-platinum px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-blue-slate">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative min-h-[420px] overflow-hidden lg:min-h-full">
+            <img src={travelImages.rishikesh} alt="Rishikesh and the Ganges" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-blue-slate/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-8 sm:p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-metallic-gold">One journey. One team.</p>
+              <p className="mt-3 max-w-sm font-serif text-3xl leading-tight text-platinum">
+                You experience the place. We handle what surrounds it.
+              </p>
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {facilities.map(({ icon: Icon, title, copy }) => (
-              <div key={title} className="rounded-xl border border-[#E8E3D9] bg-[#FAFAF8] p-4 transition-colors hover:border-[#B89A4E]">
-                <Icon className="mb-3 text-[#B89A4E]" size={19} />
-                <h3 className="font-serif text-xl text-[#1C1917]">{title}</h3>
-                <p className="mt-1 text-xs leading-5 text-[#9C9589]">{copy}</p>
-              </div>
-            ))}
+          <div className="p-7 sm:p-10 lg:p-12">
+            <p className="text-xs uppercase tracking-[0.2em] text-metallic-gold">Everything connected</p>
+            <h2 className="mt-4 max-w-xl font-serif text-4xl leading-tight text-platinum sm:text-5xl">
+              Less planning. More presence.
+            </h2>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-pale-sky">
+              One clear travel basket brings together the practical details, local knowledge and human support behind every Solura journey.
+            </p>
+
+            <div className="mt-9 grid gap-3 sm:grid-cols-2">
+              {facilities.map(({ icon: Icon, title, copy }) => (
+                <div key={title} className="rounded-2xl border border-platinum/15 bg-platinum/5 p-4 transition hover:border-metallic-gold/70 hover:bg-platinum/10">
+                  <Icon className="mb-3 text-metallic-gold" size={19} />
+                  <h3 className="text-sm font-semibold text-platinum">{title}</h3>
+                  <p className="mt-1 text-xs leading-5 text-pale-sky">{copy}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link href="/build/type" className="mt-8 inline-flex rounded-xl bg-metallic-gold px-6 py-3 text-sm font-medium text-graphite transition hover:bg-platinum">
+              Build your travel basket →
+            </Link>
           </div>
         </div>
       </div>

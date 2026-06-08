@@ -41,9 +41,9 @@ export default function GoogleAuthButton({
       type="button"
       onClick={signInWithGoogle}
       disabled={loading}
-      className="flex w-full items-center justify-center gap-3 rounded-full border border-[#E8E3D9] bg-white px-4 py-3 text-sm font-medium text-[#1C1917] transition-colors hover:border-[#B89A4E] hover:bg-[#FAFAF8] disabled:opacity-50"
+      className="flex w-full items-center justify-center gap-3 rounded-full border border-pale-sky bg-platinum px-4 py-3 text-sm font-medium text-graphite transition-colors hover:border-metallic-gold hover:bg-platinum disabled:opacity-50"
     >
-      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[#E8E3D9] text-xs font-semibold text-[#1C1917]">
+      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-pale-sky text-xs font-semibold text-graphite">
         G
       </span>
       {loading ? 'Opening Google...' : label}

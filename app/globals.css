@@ -5,22 +5,35 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'DM Sans', system-ui, sans-serif;
 
-  --color-gold: #B89A4E;
-  --color-gold-dark: #8B6914;
-  --color-cream: #FAFAF8;
-  --color-stone: #9C9589;
-  --color-border: #E8E3D9;
-  --color-highlight: #F5F0E8;
-  --color-ink: #1C1917;
-  --color-surface: #FFFFFF;
+  /* Solura brand palette */
+  --color-blue-slate: #3C687C;
+  --color-metallic-gold: #D4AF35;
+  --color-platinum: #F3F7F8;
+  --color-graphite: #2D2F33;
+  --color-pale-sky: #BFDDE7;
 
-  --color-background: #FAFAF8;
-  --color-foreground: #1C1917;
+  /* Semantic aliases keep every interface state inside the brand palette. */
+  --color-gold: #D4AF35;
+  --color-gold-dark: #D4AF35;
+  --color-cream: #F3F7F8;
+  --color-stone: #3C687C;
+  --color-border: #BFDDE7;
+  --color-highlight: #BFDDE7;
+  --color-ink: #2D2F33;
+  --color-surface: #F3F7F8;
+  --color-success: #3C687C;
+  --color-warning: #D4AF35;
+  --color-danger: #2D2F33;
+  --color-info: #3C687C;
+  --color-status-soft: #BFDDE7;
+
+  --color-background: #F3F7F8;
+  --color-foreground: #2D2F33;
 }
 
 :root {
-  --background: #FAFAF8;
-  --foreground: #1C1917;
+  --background: #F3F7F8;
+  --foreground: #2D2F33;
 }
 
 html {

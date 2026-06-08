@@ -25,17 +25,17 @@ export default async function AdminGuidesPage() {
   return (
     <div className="px-4 sm:px-8 py-6 sm:py-8">
       <div className="mb-6">
-        <p className="text-xs uppercase tracking-widest text-[#B89A4E]">Operations</p>
-        <h1 className="font-serif text-2xl sm:text-3xl text-[#1C1917]">
-          Guides & <span className="italic text-[#B89A4E]">booking requests.</span>
+        <p className="text-xs uppercase tracking-widest text-metallic-gold">Operations</p>
+        <h1 className="font-serif text-2xl sm:text-3xl text-graphite">
+          Guides & <span className="italic text-metallic-gold">booking requests.</span>
         </h1>
       </div>
 
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         {stats.map(([label, value]) => (
-          <div key={String(label)} className="rounded-xl border border-[#E8E3D9] bg-white px-5 py-4">
-            <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">{label}</p>
-            <p className="font-serif text-3xl text-[#1C1917]">{value}</p>
+          <div key={String(label)} className="rounded-xl border border-pale-sky bg-platinum px-5 py-4">
+            <p className="text-[10px] uppercase tracking-widest text-blue-slate">{label}</p>
+            <p className="font-serif text-3xl text-graphite">{value}</p>
           </div>
         ))}
       </div>

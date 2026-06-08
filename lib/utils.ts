@@ -12,15 +12,15 @@ export function formatShortDate(dateStr: string) {
 
 export function getStatusColor(status: string): string {
   const map: Record<string, string> = {
-    on_path: 'text-emerald-600 bg-emerald-50',
-    confirmed: 'text-blue-600 bg-blue-50',
-    delayed: 'text-amber-600 bg-amber-50',
-    visa_hold: 'text-orange-600 bg-orange-50',
-    new: 'text-stone-600 bg-stone-100',
-    done: 'text-stone-400 bg-stone-50',
-    cancelled: 'text-red-500 bg-red-50',
+    on_path: 'text-success bg-status-soft',
+    confirmed: 'text-info bg-status-soft',
+    delayed: 'text-warning bg-status-soft',
+    visa_hold: 'text-warning bg-status-soft',
+    new: 'text-info bg-status-soft',
+    done: 'text-info bg-status-soft',
+    cancelled: 'text-danger bg-status-soft',
   }
-  return map[status] ?? 'text-stone-500 bg-stone-50'
+  return map[status] ?? 'text-info bg-status-soft'
 }
 
 export function getStatusLabel(status: string): string {
@@ -33,10 +33,10 @@ export function getStatusLabel(status: string): string {
 
 export function getCategoryColor(category: string): string {
   const map: Record<string, string> = {
-    spiritual: 'text-[#B89A4E]', heritage: 'text-stone-600',
-    adventure: 'text-emerald-600', wellness: 'text-blue-500',
+    spiritual: 'text-metallic-gold', heritage: 'text-info',
+    adventure: 'text-success', wellness: 'text-info',
   }
-  return map[category] ?? 'text-stone-500'
+  return map[category] ?? 'text-info'
 }
 
 export function initials(name: string): string {

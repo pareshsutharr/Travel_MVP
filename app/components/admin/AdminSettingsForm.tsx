@@ -30,8 +30,8 @@ type AllSettings = {
   sos: SosSettings
 }
 
-const labelClass = 'block text-[10px] tracking-widest uppercase text-[#9C9589] mb-1.5'
-const inputClass = 'w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2.5 text-sm text-[#1C1917] outline-none focus:border-[#B89A4E] transition-colors'
+const labelClass = 'block text-[10px] tracking-widest uppercase text-blue-slate mb-1.5'
+const inputClass = 'w-full rounded-lg border border-pale-sky bg-platinum px-4 py-2.5 text-sm text-graphite outline-none focus:border-metallic-gold transition-colors'
 
 export default function AdminSettingsForm({ initial }: { initial: AllSettings }) {
   const [general, setGeneral] = useState<GeneralSettings>(initial.general)
@@ -68,8 +68,8 @@ export default function AdminSettingsForm({ initial }: { initial: AllSettings })
   return (
     <div className="max-w-2xl space-y-6">
       {/* General */}
-      <section className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-        <h2 className="font-serif text-xl text-[#1C1917] mb-4">General</h2>
+      <section className="rounded-xl border border-pale-sky bg-platinum p-6">
+        <h2 className="font-serif text-xl text-graphite mb-4">General</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelClass}>Site name</label>
@@ -91,8 +91,8 @@ export default function AdminSettingsForm({ initial }: { initial: AllSettings })
       </section>
 
       {/* Booking */}
-      <section className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-        <h2 className="font-serif text-xl text-[#1C1917] mb-4">Booking rules</h2>
+      <section className="rounded-xl border border-pale-sky bg-platinum p-6">
+        <h2 className="font-serif text-xl text-graphite mb-4">Booking rules</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelClass}>Booking fee %</label>
@@ -114,9 +114,9 @@ export default function AdminSettingsForm({ initial }: { initial: AllSettings })
       </section>
 
       {/* SOS */}
-      <section className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-        <h2 className="font-serif text-xl text-[#1C1917] mb-1">SOS &amp; 24×7 support</h2>
-        <p className="text-xs text-[#9C9589] mb-4">Shown to travellers on their active trip dashboard</p>
+      <section className="rounded-xl border border-pale-sky bg-platinum p-6">
+        <h2 className="font-serif text-xl text-graphite mb-1">SOS &amp; 24×7 support</h2>
+        <p className="text-xs text-blue-slate mb-4">Shown to travellers on their active trip dashboard</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelClass}>24×7 emergency line</label>
@@ -129,12 +129,12 @@ export default function AdminSettingsForm({ initial }: { initial: AllSettings })
         </div>
       </section>
 
-      {error && <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>}
+      {error && <p className="rounded-lg bg-status-soft px-4 py-3 text-sm text-danger">{error}</p>}
 
       <button
         onClick={save}
         disabled={saving}
-        className="flex items-center gap-2 rounded-full bg-[#1C1917] px-6 py-3 text-sm text-white transition-colors hover:bg-[#B89A4E] disabled:opacity-50"
+        className="flex items-center gap-2 rounded-full bg-graphite px-6 py-3 text-sm text-platinum transition-colors hover:bg-metallic-gold disabled:opacity-50"
       >
         {saved ? <Check size={15} /> : <Save size={15} />}
         {saved ? 'Saved' : saving ? 'Saving…' : 'Save settings'}

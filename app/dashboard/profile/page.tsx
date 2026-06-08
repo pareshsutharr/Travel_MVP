@@ -20,10 +20,10 @@ export default async function ProfilePage() {
   return (
     <div className="grid max-w-6xl gap-6 px-4 sm:px-8 py-6 sm:py-8 grid-cols-1 lg:grid-cols-5">
       <main className="space-y-5 lg:col-span-3">
-        <div className="rounded-xl border border-[#E8E3D9] bg-white p-6"><div className="flex items-center gap-4">{profile?.avatar_url ? <img src={profile.avatar_url} alt={profile.full_name ?? 'Traveller'} className="h-20 w-20 rounded-full object-cover ring-4 ring-[#F5F0E8]" /> : <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#F5F0E8] font-serif text-3xl text-[#B89A4E]">{initials(profile?.full_name ?? 'Traveller')}</div>}<div><h1 className="font-serif text-4xl text-[#1C1917]">{profile?.full_name}</h1><p className="text-[10px] uppercase tracking-widest text-[#B89A4E]">Seeker · Since {profile ? new Date(profile.member_since).getFullYear() : 2026}</p><p className="mt-2 text-sm text-[#9C9589]">{profile?.email} · {profile?.location ?? 'Location not set'}</p>{profile?.avatar_url && <p className="mt-1 text-[10px] uppercase tracking-widest text-[#9C9589]">Google profile connected</p>}</div></div><div className="mt-6 grid grid-cols-3 gap-4 border-t border-[#E8E3D9] pt-5 text-center"><div><p className="font-serif text-3xl">{profile?.journeys_count ?? 0}</p><p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Journeys</p></div><div><p className="font-serif text-3xl">{profile?.cities_count ?? 0}</p><p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Cities</p></div><div><p className="font-serif text-3xl">{bookings.reduce((s, b) => s + (b.journey?.duration ?? 0), 0)}</p><p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Days</p></div></div></div>
-        {active && <Link href={`/dashboard/trips/${active.id}`} className="block rounded-xl border border-[#B89A4E]/30 bg-[#F5F0E8] p-5"><p className="text-xs uppercase tracking-widest text-[#B89A4E]">Active · Day {active.current_day}</p><h2 className="font-serif text-2xl text-[#1C1917]">{active.journey?.title}</h2><p className="text-sm text-[#9C9589]">{active.current_location}</p></Link>}
-        <div className="rounded-xl border border-[#E8E3D9] bg-white p-5">
-          <p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Personal profile login</p>
+        <div className="rounded-xl border border-pale-sky bg-platinum p-6"><div className="flex items-center gap-4">{profile?.avatar_url ? <img src={profile.avatar_url} alt={profile.full_name ?? 'Traveller'} className="h-20 w-20 rounded-full object-cover ring-4 ring-pale-sky" /> : <div className="flex h-20 w-20 items-center justify-center rounded-full bg-pale-sky font-serif text-3xl text-metallic-gold">{initials(profile?.full_name ?? 'Traveller')}</div>}<div><h1 className="font-serif text-4xl text-graphite">{profile?.full_name}</h1><p className="text-[10px] uppercase tracking-widest text-metallic-gold">Seeker · Since {profile ? new Date(profile.member_since).getFullYear() : 2026}</p><p className="mt-2 text-sm text-blue-slate">{profile?.email} · {profile?.location ?? 'Location not set'}</p>{profile?.avatar_url && <p className="mt-1 text-[10px] uppercase tracking-widest text-blue-slate">Google profile connected</p>}</div></div><div className="mt-6 grid grid-cols-3 gap-4 border-t border-pale-sky pt-5 text-center"><div><p className="font-serif text-3xl">{profile?.journeys_count ?? 0}</p><p className="text-[10px] uppercase tracking-widest text-blue-slate">Journeys</p></div><div><p className="font-serif text-3xl">{profile?.cities_count ?? 0}</p><p className="text-[10px] uppercase tracking-widest text-blue-slate">Cities</p></div><div><p className="font-serif text-3xl">{bookings.reduce((s, b) => s + (b.journey?.duration ?? 0), 0)}</p><p className="text-[10px] uppercase tracking-widest text-blue-slate">Days</p></div></div></div>
+        {active && <Link href={`/dashboard/trips/${active.id}`} className="block rounded-xl border border-metallic-gold/30 bg-pale-sky p-5"><p className="text-xs uppercase tracking-widest text-metallic-gold">Active · Day {active.current_day}</p><h2 className="font-serif text-2xl text-graphite">{active.journey?.title}</h2><p className="text-sm text-blue-slate">{active.current_location}</p></Link>}
+        <div className="rounded-xl border border-pale-sky bg-platinum p-5">
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Personal profile login</p>
           {[
             [CheckCircle2, `Bookings done · ${bookings.length}`, '/dashboard/trips'],
             [Calendar, 'Tour manager', '/dashboard/trips'],
@@ -32,14 +32,14 @@ export default async function ProfilePage() {
             [Route, 'Destination manager from wishlist', '/dashboard/wishlist'],
             [Heart, 'Wishlist preferences', '/dashboard/wishlist'],
             [FileText, 'Visas, passports & insurance', '/dashboard/documents'],
-          ].map(([Icon, label, href]) => { const I = Icon as typeof Calendar; return <Link key={String(label)} href={String(href)} className="flex items-center gap-3 border-b border-[#E8E3D9] py-3 text-sm text-[#1C1917] last:border-0"><I size={16} className="text-[#B89A4E]" />{String(label)}<span className="ml-auto text-[#B89A4E]">-&gt;</span></Link> })}
+          ].map(([Icon, label, href]) => { const I = Icon as typeof Calendar; return <Link key={String(label)} href={String(href)} className="flex items-center gap-3 border-b border-pale-sky py-3 text-sm text-graphite last:border-0"><I size={16} className="text-metallic-gold" />{String(label)}<span className="ml-auto text-metallic-gold">-&gt;</span></Link> })}
         </div>
       </main>
       <aside className="space-y-5 lg:col-span-2">
-        <div className="rounded-xl border border-[#E8E3D9] bg-white p-5">
-          <p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Travel preferences</p>
+        <div className="rounded-xl border border-pale-sky bg-platinum p-5">
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Travel preferences</p>
           <div className="flex flex-wrap gap-2">
-            {prefs.length ? prefs.map((tag) => <span key={tag} className="rounded-full bg-[#F5F0E8] px-3 py-1 text-xs capitalize text-[#1C1917]">{tag}</span>) : <p className="text-xs text-[#9C9589]">Soma will learn as you travel.</p>}
+            {prefs.length ? prefs.map((tag) => <span key={tag} className="rounded-full bg-pale-sky px-3 py-1 text-xs capitalize text-graphite">{tag}</span>) : <p className="text-xs text-blue-slate">Soma will learn as you travel.</p>}
           </div>
         </div>
         {profile && <ProfileEditForm profile={profile} />}

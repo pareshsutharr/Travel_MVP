@@ -10,11 +10,11 @@ const TYPE_LABEL: Record<string, string> = {
 }
 
 const TYPE_COLOR: Record<string, string> = {
-  restaurant: 'bg-amber-50 text-amber-700',
-  cafe: 'bg-blue-50 text-blue-600',
-  street_food: 'bg-emerald-50 text-emerald-700',
-  lodge: 'bg-purple-50 text-purple-600',
-  dhaba: 'bg-orange-50 text-orange-600',
+  restaurant: 'bg-status-soft text-warning',
+  cafe: 'bg-status-soft text-info',
+  street_food: 'bg-status-soft text-success',
+  lodge: 'bg-status-soft text-info',
+  dhaba: 'bg-status-soft text-warning',
 }
 
 const PRICE_LABEL: Record<string, string> = {
@@ -43,11 +43,11 @@ export default async function FoodPage() {
   return (
     <div className="px-4 sm:px-8 py-6 sm:py-8">
       <div className="mb-6">
-        <p className="text-xs uppercase tracking-widest text-[#B89A4E]">Travel basket</p>
-        <h1 className="font-serif text-2xl sm:text-3xl text-[#1C1917]">
-          Food & Lodge <span className="italic text-[#B89A4E]">recommendations.</span>
+        <p className="text-xs uppercase tracking-widest text-metallic-gold">Travel basket</p>
+        <h1 className="font-serif text-2xl sm:text-3xl text-graphite">
+          Food & Lodge <span className="italic text-metallic-gold">recommendations.</span>
         </h1>
-        <p className="mt-1 text-sm text-[#9C9589]">
+        <p className="mt-1 text-sm text-blue-slate">
           Local specialities and trusted restaurants — curated by our destination managers for each city on your route.
         </p>
       </div>
@@ -56,7 +56,7 @@ export default async function FoodPage() {
       <div className="mb-6 flex flex-wrap gap-2">
         {cities.map((city) => (
           <a key={city} href={`#${city.replace(/[^a-z]/gi, '-').toLowerCase()}`}
-            className="rounded-full border border-[#E8E3D9] bg-white px-4 py-1.5 text-xs text-[#1C1917] hover:border-[#B89A4E] hover:text-[#B89A4E] transition-colors">
+            className="rounded-full border border-pale-sky bg-platinum px-4 py-1.5 text-xs text-graphite hover:border-metallic-gold hover:text-metallic-gold transition-colors">
             {city}
           </a>
         ))}
@@ -66,34 +66,34 @@ export default async function FoodPage() {
         {Object.entries(grouped).map(([city, recs]) => (
           <div key={city} id={city.replace(/[^a-z]/gi, '-').toLowerCase()}>
             <div className="mb-4 flex items-center gap-3">
-              <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">{city}</p>
-              <div className="h-px flex-1 bg-[#E8E3D9]" />
+              <p className="text-[10px] uppercase tracking-widest text-blue-slate">{city}</p>
+              <div className="h-px flex-1 bg-pale-sky" />
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {recs.map((r) => (
-                <div key={r.id} className="rounded-xl border border-[#E8E3D9] bg-white p-5 hover:border-[#B89A4E] transition-colors">
+                <div key={r.id} className="rounded-xl border border-pale-sky bg-platinum p-5 hover:border-metallic-gold transition-colors">
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="min-w-0">
-                      <h3 className="font-serif text-lg text-[#1C1917]">{r.name}</h3>
-                      {r.cuisine && <p className="text-xs text-[#9C9589]">{r.cuisine}</p>}
+                      <h3 className="font-serif text-lg text-graphite">{r.name}</h3>
+                      {r.cuisine && <p className="text-xs text-blue-slate">{r.cuisine}</p>}
                     </div>
-                    <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[9px] uppercase tracking-wide ${TYPE_COLOR[r.type] ?? 'bg-gray-50 text-gray-600'}`}>
+                    <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[9px] uppercase tracking-wide ${TYPE_COLOR[r.type] ?? 'bg-status-soft text-info'}`}>
                       {TYPE_LABEL[r.type] ?? r.type}
                     </span>
                   </div>
-                  <p className="text-sm leading-5 text-[#1C1917] mb-3">{r.speciality}</p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#9C9589]">
-                    <span className="text-[#B89A4E]">{'★'.repeat(Math.round(r.rating))}{'☆'.repeat(5 - Math.round(r.rating))}</span>
+                  <p className="text-sm leading-5 text-graphite mb-3">{r.speciality}</p>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-blue-slate">
+                    <span className="text-metallic-gold">{'★'.repeat(Math.round(r.rating))}{'☆'.repeat(5 - Math.round(r.rating))}</span>
                     <span>{r.rating}</span>
                     <span>·</span>
                     <span>{PRICE_LABEL[r.price_range] ?? r.price_range}</span>
-                    {r.is_vegetarian && <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] text-emerald-600">Vegetarian</span>}
+                    {r.is_vegetarian && <span className="rounded-full bg-status-soft px-2 py-0.5 text-[9px] text-success">Vegetarian</span>}
                   </div>
-                  {r.address && <p className="mt-2 text-[10px] text-[#9C9589]">{r.address}</p>}
+                  {r.address && <p className="mt-2 text-[10px] text-blue-slate">{r.address}</p>}
                   {r.tags.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-1">
                       {r.tags.map((tag) => (
-                        <span key={tag} className="rounded bg-[#F5F0E8] px-1.5 py-0.5 text-[9px] text-[#9C9589]">{tag}</span>
+                        <span key={tag} className="rounded bg-pale-sky px-1.5 py-0.5 text-[9px] text-blue-slate">{tag}</span>
                       ))}
                     </div>
                   )}
@@ -105,9 +105,9 @@ export default async function FoodPage() {
       </div>
 
       {items.length === 0 && (
-        <div className="rounded-xl border border-[#E8E3D9] bg-white p-10 text-center">
-          <p className="font-serif text-xl text-[#1C1917]">Recommendations coming soon</p>
-          <p className="mt-2 text-sm text-[#9C9589]">Your destination manager will add food notes once your route is confirmed.</p>
+        <div className="rounded-xl border border-pale-sky bg-platinum p-10 text-center">
+          <p className="font-serif text-xl text-graphite">Recommendations coming soon</p>
+          <p className="mt-2 text-sm text-blue-slate">Your destination manager will add food notes once your route is confirmed.</p>
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import SoluraLogo from './SoluraLogo'
 
 const footerLinks = {
   Journeys: [
@@ -24,43 +25,13 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#1C1917', color: '#FAFAF8' }}>
+    <footer style={{ backgroundColor: '#2D2F33', color: '#F3F7F8' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:grid-cols-5 lg:gap-8">
           {/* Logo & CTA Column */}
           <div className="col-span-2 lg:col-span-2 flex flex-col gap-6">
             {/* Logo */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ border: '1px solid rgba(184, 154, 78, 0.5)' }}
-                >
-                  <span
-                    className="text-sm font-semibold"
-                    style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#B89A4E' }}
-                  >
-                    S
-                  </span>
-                </div>
-                <span
-                  className="text-xl font-semibold tracking-widest"
-                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#FAFAF8' }}
-                >
-                  SOLURA
-                </span>
-              </div>
-              <span
-                className="text-xs tracking-widest uppercase ml-9"
-                style={{
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
-                  color: 'rgba(156, 149, 137, 0.8)',
-                  letterSpacing: '0.15em',
-                }}
-              >
-                Travel · India &amp; Nepal
-              </span>
-            </div>
+            <SoluraLogo href="/" showTagline variant="light" className="w-40" />
 
             <p
               className="text-sm leading-relaxed max-w-xs"
@@ -73,14 +44,14 @@ export default function Footer() {
             <div className="flex flex-col gap-3">
               <Link
                 href="/build/type"
-                className="w-fit px-6 py-3 rounded-full text-sm text-white transition-all duration-200 hover:opacity-90"
-                style={{ fontFamily: "'DM Sans', system-ui, sans-serif", backgroundColor: '#B89A4E', fontWeight: 400 }}
+                className="w-fit px-6 py-3 rounded-full text-sm text-platinum transition-all duration-200 hover:opacity-90"
+                style={{ fontFamily: "'DM Sans', system-ui, sans-serif", backgroundColor: '#D4AF35', fontWeight: 400 }}
               >
                 Begin a journey →
               </Link>
               <Link
                 href="/build/type"
-                className="w-fit px-6 py-3 rounded-full text-sm transition-all duration-200 hover:border-[#B89A4E] hover:text-[#B89A4E]"
+                className="w-fit px-6 py-3 rounded-full text-sm transition-all duration-200 hover:border-metallic-gold hover:text-metallic-gold"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
                   color: 'rgba(250, 250, 248, 0.7)',
@@ -111,7 +82,7 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-sm transition-colors duration-200 hover:text-[#B89A4E]"
+                      className="text-sm transition-colors duration-200 hover:text-metallic-gold"
                       style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(250, 250, 248, 0.6)', fontWeight: 300 }}
                     >
                       {label}
@@ -136,14 +107,14 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="transition-colors hover:text-[#B89A4E]"
+              className="transition-colors hover:text-metallic-gold"
               style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(156, 149, 137, 0.6)', fontWeight: 300 }}
             >
               Privacy
             </Link>
             <Link
               href="/"
-              className="transition-colors hover:text-[#B89A4E]"
+              className="transition-colors hover:text-metallic-gold"
               style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(156, 149, 137, 0.6)', fontWeight: 300 }}
             >
               Terms

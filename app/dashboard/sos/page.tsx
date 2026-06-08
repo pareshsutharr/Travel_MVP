@@ -1,16 +1,20 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { AlertTriangle, Phone, Mail, MapPin, CheckCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { SosEvent, Booking, Journey } from '@/types/database'
+import type { MapMarker } from '@/app/components/SoluraMap'
+
+const SoluraMap = dynamic(() => import('@/app/components/SoluraMap'), { ssr: false })
 
 type BookingRow = Booking & { journey: Journey | null }
 
 const STATUS_STYLE: Record<string, string> = {
-  active: 'bg-red-50 text-red-600',
-  responded: 'bg-amber-50 text-amber-600',
-  resolved: 'bg-emerald-50 text-emerald-600',
+  active: 'bg-status-soft text-danger',
+  responded: 'bg-status-soft text-warning',
+  resolved: 'bg-status-soft text-success',
 }
 
 export default function SosPage() {
@@ -22,6 +26,7 @@ export default function SosPage() {
   const [sent, setSent] = useState(false)
   const [sosLine, setSosLine] = useState('+91 98765 43210')
   const [sosEmail, setSosEmail] = useState('sos@solura.travel')
+  const [liveMarkers, setLiveMarkers] = useState<MapMarker[]>([])
 
   useEffect(() => {
     const supabase = createClient()
@@ -49,6 +54,7 @@ export default function SosPage() {
 
     navigator.geolocation?.getCurrentPosition(async (pos) => {
       const { latitude: lat, longitude: lng } = pos.coords
+      setLiveMarkers([{ lat, lng, title: 'Your SOS location', type: 'sos', info: 'Emergency alert sent' }])
       await insertSos(supabase, lat, lng, `${lat.toFixed(4)}, ${lng.toFixed(4)}`)
     }, async () => {
       await insertSos(supabase, null, null, activeBooking?.current_location ?? null)
@@ -80,91 +86,109 @@ export default function SosPage() {
   return (
     <div className="px-4 sm:px-8 py-6 sm:py-8 max-w-2xl">
       <div className="mb-6">
-        <p className="text-xs uppercase tracking-widest text-red-500">Emergency</p>
-        <h1 className="font-serif text-2xl sm:text-3xl text-[#1C1917]">SOS · <span className="italic text-red-500">24×7 support.</span></h1>
-        <p className="mt-1 text-sm text-[#9C9589]">
+        <p className="text-xs uppercase tracking-widest text-danger">Emergency</p>
+        <h1 className="font-serif text-2xl sm:text-3xl text-graphite">SOS · <span className="italic text-danger">24×7 support.</span></h1>
+        <p className="mt-1 text-sm text-blue-slate">
           Your Solura desk is always reachable. Use the button below for immediate assistance or call directly.
         </p>
       </div>
 
       {/* Emergency contacts */}
       <div className="mb-6 grid gap-3 sm:grid-cols-2">
-        <a href={`tel:${sosLine}`} className="flex items-center gap-4 rounded-xl border border-red-200 bg-red-50 p-5 hover:border-red-400 transition-colors">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100">
-            <Phone size={18} className="text-red-600" />
+        <a href={`tel:${sosLine}`} className="flex items-center gap-4 rounded-xl border border-danger bg-status-soft p-5 hover:border-danger transition-colors">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-status-soft">
+            <Phone size={18} className="text-danger" />
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-red-400">24×7 SOS line</p>
-            <p className="font-serif text-lg text-[#1C1917]">{sosLine}</p>
-            <p className="text-xs text-red-500">Tap to call immediately</p>
+            <p className="text-[10px] uppercase tracking-widest text-danger">24×7 SOS line</p>
+            <p className="font-serif text-lg text-graphite">{sosLine}</p>
+            <p className="text-xs text-danger">Tap to call immediately</p>
           </div>
         </a>
-        <a href={`mailto:${sosEmail}`} className="flex items-center gap-4 rounded-xl border border-[#E8E3D9] bg-white p-5 hover:border-[#B89A4E] transition-colors">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5F0E8]">
-            <Mail size={18} className="text-[#B89A4E]" />
+        <a href={`mailto:${sosEmail}`} className="flex items-center gap-4 rounded-xl border border-pale-sky bg-platinum p-5 hover:border-metallic-gold transition-colors">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pale-sky">
+            <Mail size={18} className="text-metallic-gold" />
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Emergency email</p>
-            <p className="font-serif text-base text-[#1C1917]">{sosEmail}</p>
-            <p className="text-xs text-[#9C9589]">Response within 5 minutes</p>
+            <p className="text-[10px] uppercase tracking-widest text-blue-slate">Emergency email</p>
+            <p className="font-serif text-base text-graphite">{sosEmail}</p>
+            <p className="text-xs text-blue-slate">Response within 5 minutes</p>
           </div>
         </a>
       </div>
 
+      {/* Live location map */}
+      {(liveMarkers.length > 0 || (activeBooking?.gps_lat && activeBooking?.gps_lng)) && (
+        <div className="mb-6 overflow-hidden rounded-xl border border-pale-sky">
+          <SoluraMap
+            markers={liveMarkers.length > 0 ? liveMarkers : [{
+              lat: Number(activeBooking!.gps_lat),
+              lng: Number(activeBooking!.gps_lng),
+              title: activeBooking!.current_location ?? 'Your location',
+              type: 'normal',
+            }]}
+            centerLat={liveMarkers[0]?.lat ?? Number(activeBooking!.gps_lat)}
+            centerLng={liveMarkers[0]?.lng ?? Number(activeBooking!.gps_lng)}
+            zoom={14}
+            height="240px"
+          />
+        </div>
+      )}
+
       {/* Active trip location */}
       {activeBooking && (
-        <div className="mb-6 flex items-center gap-3 rounded-xl border border-[#E8E3D9] bg-white px-5 py-4">
-          <MapPin size={16} className="text-[#B89A4E] shrink-0" />
+        <div className="mb-6 flex items-center gap-3 rounded-xl border border-pale-sky bg-platinum px-5 py-4">
+          <MapPin size={16} className="text-metallic-gold shrink-0" />
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Your current location (from trip)</p>
-            <p className="text-sm text-[#1C1917]">{activeBooking.current_location ?? 'Location updating...'} · {activeBooking.journey?.title}</p>
+            <p className="text-[10px] uppercase tracking-widest text-blue-slate">Your current location (from trip)</p>
+            <p className="text-sm text-graphite">{activeBooking.current_location ?? 'Location updating...'} · {activeBooking.journey?.title}</p>
           </div>
         </div>
       )}
 
       {/* SOS trigger */}
       {!sent ? (
-        <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-          <p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Send SOS alert to Solura desk</p>
+        <div className="rounded-xl border border-pale-sky bg-platinum p-6">
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Send SOS alert to Solura desk</p>
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={3}
             placeholder="Describe your emergency (medical, safety, lost, etc.)..."
-            className="w-full resize-none rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-3 text-sm text-[#1C1917] outline-none focus:border-red-400 mb-4"
+            className="w-full resize-none rounded-lg border border-pale-sky bg-platinum px-4 py-3 text-sm text-graphite outline-none focus:border-danger mb-4"
           />
           <button
             onClick={triggerSos}
             disabled={sending || !userId}
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-red-600 py-4 text-sm font-medium text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-danger py-4 text-sm font-medium text-platinum hover:bg-danger transition-colors disabled:opacity-50"
           >
             <AlertTriangle size={18} />
             {sending ? 'Sending alert...' : 'TRIGGER SOS — Alert Solura desk now'}
           </button>
-          <p className="mt-3 text-center text-[10px] text-[#9C9589]">
+          <p className="mt-3 text-center text-[10px] text-blue-slate">
             This will share your location and booking details with our 24×7 operations team.
           </p>
         </div>
       ) : (
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-          <CheckCircle size={32} className="mx-auto mb-3 text-emerald-500" />
-          <p className="font-serif text-xl text-[#1C1917]">SOS alert sent</p>
-          <p className="mt-1 text-sm text-[#9C9589]">Our team has been notified. Someone will call you within 5 minutes.</p>
-          <p className="mt-4 text-sm font-medium text-[#1C1917]">While you wait, call the SOS line directly:</p>
-          <a href={`tel:${sosLine}`} className="mt-2 inline-block font-serif text-2xl text-red-600">{sosLine}</a>
+        <div className="rounded-xl border border-success bg-status-soft p-6 text-center">
+          <CheckCircle size={32} className="mx-auto mb-3 text-success" />
+          <p className="font-serif text-xl text-graphite">SOS alert sent</p>
+          <p className="mt-1 text-sm text-blue-slate">Our team has been notified. Someone will call you within 5 minutes.</p>
+          <p className="mt-4 text-sm font-medium text-graphite">While you wait, call the SOS line directly:</p>
+          <a href={`tel:${sosLine}`} className="mt-2 inline-block font-serif text-2xl text-danger">{sosLine}</a>
         </div>
       )}
 
       {/* Previous SOS events */}
       {events.length > 0 && (
         <div className="mt-8">
-          <p className="mb-3 text-[10px] uppercase tracking-widest text-[#9C9589]">Previous SOS events</p>
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-blue-slate">Previous SOS events</p>
           <div className="space-y-2">
             {events.map((e) => (
-              <div key={e.id} className="flex items-center justify-between rounded-lg border border-[#E8E3D9] bg-white px-4 py-3">
+              <div key={e.id} className="flex items-center justify-between rounded-lg border border-pale-sky bg-platinum px-4 py-3">
                 <div>
-                  <p className="text-sm text-[#1C1917]">{e.message ?? 'Emergency alert'}</p>
-                  <p className="text-xs text-[#9C9589]">{new Date(e.created_at).toLocaleString()} {e.location_name ? `· ${e.location_name}` : ''}</p>
+                  <p className="text-sm text-graphite">{e.message ?? 'Emergency alert'}</p>
+                  <p className="text-xs text-blue-slate">{new Date(e.created_at).toLocaleString()} {e.location_name ? `· ${e.location_name}` : ''}</p>
                 </div>
                 <span className={`rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-wide capitalize ${STATUS_STYLE[e.status]}`}>
                   {e.status}

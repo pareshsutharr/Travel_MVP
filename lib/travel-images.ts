@@ -54,3 +54,39 @@ export function getPlaceImage(placeName?: string | null, placeLocation?: string 
 export function imageScrim(strength = 0.35) {
   return `linear-gradient(180deg, rgba(28,25,23,${strength * 0.35}) 0%, rgba(28,25,23,${strength}) 100%)`
 }
+
+// Returns up to 3 images for a journey card carousel
+export function getJourneyImages(journey?: Pick<Journey, 'title' | 'category' | 'route'> | null): string[] {
+  const text = `${journey?.title ?? ''} ${journey?.route ?? ''} ${journey?.category ?? ''}`.toLowerCase()
+
+  // Multi-stop routes — mix images from different stops
+  if (text.includes('annapurna') || text.includes('abc')) {
+    return [travelImages.annapurna, travelImages.nepal, travelImages.rishikesh]
+  }
+  if (text.includes('pokhara') || (text.includes('nepal') && !text.includes('lumbini'))) {
+    return [travelImages.nepal, travelImages.annapurna, travelImages.lumbini]
+  }
+  if (text.includes('lumbini') && text.includes('bodh')) {
+    return [travelImages.lumbini, travelImages.bodhGaya, travelImages.spiritual]
+  }
+  if (text.includes('lumbini')) {
+    return [travelImages.lumbini, travelImages.nepal, travelImages.bodhGaya]
+  }
+  if (text.includes('bodh') || text.includes('buddha')) {
+    return [travelImages.bodhGaya, travelImages.lumbini, travelImages.spiritual]
+  }
+  if (text.includes('rishikesh') || text.includes('wellness') || text.includes('yoga')) {
+    return [travelImages.rishikesh, travelImages.wellness, travelImages.varanasi]
+  }
+  if (text.includes('varanasi') || text.includes('ganges') || text.includes('kashi')) {
+    return [travelImages.varanasi, travelImages.rishikesh, travelImages.spiritual]
+  }
+  if (text.includes('heritage')) {
+    return [travelImages.heritage, travelImages.bodhGaya, travelImages.lumbini]
+  }
+  if (text.includes('adventure')) {
+    return [travelImages.adventure, travelImages.annapurna, travelImages.nepal]
+  }
+
+  return [travelImages.spiritual, travelImages.varanasi, travelImages.rishikesh]
+}

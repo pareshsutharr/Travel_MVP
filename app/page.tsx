@@ -4,6 +4,7 @@ import HeroSection from './components/HeroSection'
 import ServicesStrip from './components/ServicesStrip'
 import OneStopSolutionSection from './components/OneStopSolutionSection'
 import StoryLineSection from './components/StoryLineSection'
+import JourneyHighlightsSection from './components/JourneyHighlightsSection'
 import HowItWorks from './components/HowItWorks'
 import CounselSection from './components/CounselSection'
 import TestimonialsSection from './components/TestimonialsSection'
@@ -24,8 +25,9 @@ export default async function Home() {
       <main>
         <HeroSection />
         <ServicesStrip />
-        <OneStopSolutionSection />
         <StoryLineSection journeys={(journeys as Journey[]) ?? []} />
+        <OneStopSolutionSection />
+        <JourneyHighlightsSection journeys={(journeys as Journey[]) ?? []} />
         <HowItWorks />
         <CounselSection />
         <TestimonialsSection />

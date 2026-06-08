@@ -1,159 +1,71 @@
-import { travelImages } from '@/lib/travel-images'
+import { ArrowRight, CalendarDays, MapPin, Search, Users } from 'lucide-react'
 import Link from 'next/link'
+import { travelImages } from '@/lib/travel-images'
+
+const searchFields = [
+  { icon: MapPin, eyebrow: 'Where to?', value: 'India or Nepal' },
+  { icon: CalendarDays, eyebrow: 'When?', value: 'Choose your dates' },
+  { icon: Users, eyebrow: 'Travellers', value: '2 travellers' },
+]
 
 export default function HeroSection() {
-  const photoCards = [
-    {
-      className: 'absolute top-0 right-0 w-48 h-72 rounded-2xl overflow-hidden shadow-md',
-      src: travelImages.varanasi,
-      label: 'Varanasi · Ghat',
-    },
-    {
-      className: 'absolute top-28 left-4 w-56 h-52 rounded-2xl overflow-hidden shadow-md',
-      src: travelImages.rishikesh,
-      label: 'Rishikesh',
-    },
-    {
-      className: 'absolute bottom-0 left-0 right-8 h-48 rounded-2xl overflow-hidden shadow-md',
-      src: travelImages.nepal,
-      label: 'Nepal · Pokhara',
-    },
-  ]
-
   return (
-    <section
-      className="min-h-screen flex items-center pt-16"
-      style={{ backgroundColor: '#FAFAF8' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center min-h-[calc(100vh-4rem)]">
-          {/* Left: Text Content */}
-          <div className="flex flex-col justify-center gap-8 lg:py-20">
-            {/* Label */}
-            <p
-              className="text-xs tracking-widest uppercase"
-              style={{
-                fontFamily: "'DM Sans', system-ui, sans-serif",
-                color: '#B89A4E',
-                letterSpacing: '0.2em',
-              }}
-            >
-              India · Nepal · Since 2024
-            </p>
+    <section className="relative min-h-[780px] overflow-visible bg-graphite">
+      <img
+        src={travelImages.annapurna}
+        alt="Himalayan mountains in Nepal"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-graphite/90 via-graphite/55 to-blue-slate/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-graphite/65 via-transparent to-graphite/30" />
 
-            {/* Headline */}
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 400 }}
-            >
-              The trip is the
-              <br />
-              <em style={{ color: '#B89A4E', fontStyle: 'italic' }}>quiet part.</em>
-            </h1>
-
-            {/* Body */}
-            <p
-              className="text-base leading-relaxed max-w-sm"
-              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589', fontWeight: 300 }}
-            >
-              We pack the basket — the visa, the cab, the hotel, the SIM, the guide, the fees,
-              and the small worries you didn&apos;t know you packed. You pay it. You walk.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/build/type"
-                className="px-6 py-3 rounded-full text-sm transition-all duration-200 hover:bg-ink hover:text-white"
-                style={{
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
-                  color: '#1C1917',
-                  border: '1.5px solid #1C1917',
-                  fontWeight: 400,
-                }}
-              >
-                Talk with Soma →
-              </Link>
-              <Link
-                href="#storyline"
-                className="px-6 py-3 rounded-full text-sm text-white transition-all duration-200 hover:opacity-90"
-                style={{
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
-                  backgroundColor: '#B89A4E',
-                  fontWeight: 400,
-                }}
-              >
-                See the Story Line
-              </Link>
-            </div>
-
-            {/* Trust Row */}
-            <div
-              className="flex flex-wrap items-center gap-2 text-xs tracking-widest uppercase"
-              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589', letterSpacing: '0.1em' }}
-            >
-              <span>Trustpilot · 4.9</span>
-              <span style={{ color: '#B89A4E' }}>·</span>
-              <span>1,420+ Journeys</span>
-              <span style={{ color: '#B89A4E' }}>·</span>
-              <span>24×7 Counsel</span>
-            </div>
+      <div className="relative mx-auto flex min-h-[780px] max-w-7xl items-center px-4 pb-40 pt-28 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          <div className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.24em] text-metallic-gold">
+            <span className="h-px w-10 bg-metallic-gold" />
+            Your journey, thoughtfully handled
           </div>
-
-          {/* Right: Photo Collage (desktop only) */}
-          <div className="hidden lg:block relative h-[600px] lg:h-[680px]">
-            {photoCards.map((card) => (
-              <div key={card.label} className={card.className}>
-                <img src={card.src} alt={card.label} className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1C1917]/55 via-[#1C1917]/10 to-transparent" />
-                <div className="absolute inset-0 flex flex-col justify-end p-4">
-                  <p
-                    className="text-xs tracking-widest uppercase text-white/85"
-                    style={{ fontFamily: "'DM Sans', system-ui, sans-serif", letterSpacing: '0.15em' }}
-                  >
-                    {card.label}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {/* Floating Quote Card */}
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/2 w-64 rounded-xl p-4 shadow-lg z-10"
-              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E8E3D9' }}
+          <h1 className="max-w-3xl font-serif text-5xl leading-[0.96] text-platinum sm:text-6xl lg:text-8xl">
+            Discover places
+            <br />
+            <span className="italic text-metallic-gold">you&apos;ll carry home.</span>
+          </h1>
+          <p className="mt-7 max-w-xl text-base leading-7 text-platinum/80 sm:text-lg">
+            Curated spiritual and cultural journeys across India and Nepal, with every flight, stay,
+            guide and quiet detail arranged around you.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <Link
+              href="/journeys"
+              className="inline-flex items-center gap-3 rounded-xl bg-metallic-gold px-7 py-4 text-sm font-medium text-graphite shadow-lg transition hover:-translate-y-0.5 hover:bg-platinum"
             >
-              <div
-                className="w-6 h-6 rounded-full mb-3 flex items-center justify-center"
-                style={{ backgroundColor: '#F5F0E8' }}
-              >
-                <span
-                  className="text-xs"
-                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#B89A4E' }}
-                >
-                  ❝
-                </span>
-              </div>
-              <p
-                className="text-sm leading-relaxed mb-3"
-                style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  color: '#1C1917',
-                  fontStyle: 'italic',
-                  fontSize: '0.875rem',
-                }}
-              >
-                &ldquo;Felt like a friend in Delhi had thought of everything before we arrived.&rdquo;
-              </p>
-              <p
-                className="text-xs"
-                style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589' }}
-              >
-                Margaret &amp; John · USA · 2026
-              </p>
-            </div>
+              Explore journeys <ArrowRight size={17} />
+            </Link>
+            <Link href="/build/type" className="rounded-xl border border-platinum/35 px-7 py-4 text-sm text-platinum backdrop-blur transition hover:border-metallic-gold hover:text-metallic-gold">
+              Plan with Soma
+            </Link>
           </div>
         </div>
       </div>
+
+      <div className="absolute inset-x-0 bottom-0 z-10 translate-y-1/2 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-platinum/70 bg-platinum shadow-[0_24px_60px_rgba(45,47,51,0.22)] md:grid-cols-[1fr_1fr_1fr_0.9fr]">
+          {searchFields.map(({ icon: Icon, eyebrow, value }) => (
+            <div key={eyebrow} className="flex items-center gap-4 border-b border-pale-sky px-5 py-5 md:border-b-0 md:border-r">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pale-sky text-blue-slate">
+                <Icon size={19} />
+              </span>
+              <span>
+                <span className="block text-[10px] uppercase tracking-[0.18em] text-blue-slate">{eyebrow}</span>
+                <span className="mt-1 block text-sm font-medium text-graphite">{value}</span>
+              </span>
+            </div>
+          ))}
+          <Link href="/build/type" className="m-3 flex items-center justify-center gap-3 rounded-xl bg-graphite px-6 py-4 text-sm font-medium text-platinum transition hover:bg-blue-slate">
+            Search your journey <Search size={17} />
+          </Link>
+        </div>
+      </div>
     </section>
-  );
+  )
 }

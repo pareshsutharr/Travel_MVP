@@ -76,15 +76,15 @@ export default async function AdminDashboard() {
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-xs tracking-widest text-[#9C9589] uppercase mb-1">{dateLabel}</p>
-          <h1 className="font-serif text-3xl text-[#1C1917]">
+          <p className="text-xs tracking-widest text-blue-slate uppercase mb-1">{dateLabel}</p>
+          <h1 className="font-serif text-3xl text-graphite">
             Good morning, {profile?.full_name?.split(' ')[0]} —{' '}
-            <span className="font-serif italic text-[#B89A4E]">{activeCount ?? 0} travellers are on the path.</span>
+            <span className="font-serif italic text-metallic-gold">{activeCount ?? 0} travellers are on the path.</span>
           </h1>
         </div>
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9C9589]" />
-          <input className="pl-9 pr-4 py-2.5 bg-white border border-[#E8E3D9] rounded-full text-sm text-[#9C9589] w-64 focus:outline-none focus:border-[#B89A4E]" placeholder="Search bookings, customers…" readOnly />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-slate" />
+          <input className="pl-9 pr-4 py-2.5 bg-platinum border border-pale-sky rounded-full text-sm text-blue-slate w-64 focus:outline-none focus:border-metallic-gold" placeholder="Search bookings, customers…" readOnly />
         </div>
       </div>
 
@@ -96,10 +96,10 @@ export default async function AdminDashboard() {
           { label: 'NEW CUSTOMERS', value: newCustomers ?? 0, sub: 'This month' },
           { label: 'NPS · 90 DAY', value: avgNps || '—', sub: 'Avg score' },
         ].map(s => (
-          <div key={s.label} className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
-            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-2">{s.label}</p>
-            <p className="font-serif text-5xl text-[#1C1917] mb-1">{s.value}</p>
-            <p className="text-xs text-[#9C9589]">{s.sub}</p>
+          <div key={s.label} className="bg-platinum border border-pale-sky rounded-xl px-5 py-5">
+            <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-2">{s.label}</p>
+            <p className="font-serif text-5xl text-graphite mb-1">{s.value}</p>
+            <p className="text-xs text-blue-slate">{s.sub}</p>
           </div>
         ))}
       </div>
@@ -111,9 +111,9 @@ export default async function AdminDashboard() {
           { label: 'TOTAL CUSTOMERS', value: totalCustomers ?? 0 },
           { label: 'TOTAL REVENUE', value: formatCurrency(totalRevenue) },
         ].map(s => (
-          <div key={s.label} className="bg-[#F5F0E8] border border-[#E8E3D9] rounded-xl px-5 py-4 flex items-center justify-between">
-            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase">{s.label}</p>
-            <p className="font-serif text-2xl text-[#B89A4E]">{s.value}</p>
+          <div key={s.label} className="bg-pale-sky border border-pale-sky rounded-xl px-5 py-4 flex items-center justify-between">
+            <p className="text-[10px] tracking-widest text-blue-slate uppercase">{s.label}</p>
+            <p className="font-serif text-2xl text-metallic-gold">{s.value}</p>
           </div>
         ))}
       </div>
@@ -123,9 +123,9 @@ export default async function AdminDashboard() {
         <div className="col-span-2">
           <RevenueChart data={chartData} />
         </div>
-        <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
-          <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-1">QUICK ACTIONS</p>
-          <h3 className="font-serif text-lg text-[#1C1917] mb-4">Manage</h3>
+        <div className="bg-platinum border border-pale-sky rounded-xl px-5 py-5">
+          <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-1">QUICK ACTIONS</p>
+          <h3 className="font-serif text-lg text-graphite mb-4">Manage</h3>
           <div className="space-y-2">
             {[
               { label: 'Add new journey', href: '/admin/storyline/new', sub: 'Create story' },
@@ -135,12 +135,12 @@ export default async function AdminDashboard() {
               { label: 'Open counsel inbox', href: '/admin/counsel', sub: `${unreadCount ?? 0} unread` },
               { label: 'Site settings', href: '/admin/settings', sub: 'Configure' },
             ].map(item => (
-              <Link key={item.href} href={item.href} className="flex items-center justify-between py-2.5 border-b border-[#E8E3D9] last:border-0 hover:text-[#B89A4E] group">
+              <Link key={item.href} href={item.href} className="flex items-center justify-between py-2.5 border-b border-pale-sky last:border-0 hover:text-metallic-gold group">
                 <div>
-                  <p className="text-sm text-[#1C1917] group-hover:text-[#B89A4E] transition-colors">{item.label}</p>
-                  <p className="text-[10px] text-[#9C9589]">{item.sub}</p>
+                  <p className="text-sm text-graphite group-hover:text-metallic-gold transition-colors">{item.label}</p>
+                  <p className="text-[10px] text-blue-slate">{item.sub}</p>
                 </div>
-                <span className="text-[#B89A4E] text-sm">→</span>
+                <span className="text-metallic-gold text-sm">→</span>
               </Link>
             ))}
           </div>
@@ -153,48 +153,48 @@ export default async function AdminDashboard() {
 
         {/* RIGHT: Story Line + Counsel */}
         <div className="space-y-4">
-          <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
+          <div className="bg-platinum border border-pale-sky rounded-xl px-5 py-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-0.5">STORY LINE</p>
-                <h3 className="font-serif text-lg text-[#1C1917]">Drafts &amp; published</h3>
+                <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-0.5">STORY LINE</p>
+                <h3 className="font-serif text-lg text-graphite">Drafts &amp; published</h3>
               </div>
-              <Link href="/admin/storyline" className="text-xs text-[#B89A4E] hover:underline">View all →</Link>
+              <Link href="/admin/storyline" className="text-xs text-metallic-gold hover:underline">View all →</Link>
             </div>
             <div className="space-y-2">
               {journeys?.map(j => (
-                <div key={j.id} className="flex items-center gap-3 py-2 border-b border-[#E8E3D9] last:border-0">
-                  <CheckCircle size={14} className={j.status === 'published' ? 'text-[#B89A4E]' : 'text-[#E8E3D9]'} />
-                  <span className="text-sm text-[#1C1917] flex-1 truncate">{j.title}</span>
-                  <span className="text-[10px] text-[#9C9589] capitalize">{j.status.replace('_', ' ')}</span>
+                <div key={j.id} className="flex items-center gap-3 py-2 border-b border-pale-sky last:border-0">
+                  <CheckCircle size={14} className={j.status === 'published' ? 'text-metallic-gold' : 'text-pale-sky'} />
+                  <span className="text-sm text-graphite flex-1 truncate">{j.title}</span>
+                  <span className="text-[10px] text-blue-slate capitalize">{j.status.replace('_', ' ')}</span>
                 </div>
               ))}
             </div>
-            <Link href="/admin/storyline/new" className="mt-4 block text-xs text-[#B89A4E] hover:underline">+ New journey →</Link>
+            <Link href="/admin/storyline/new" className="mt-4 block text-xs text-metallic-gold hover:underline">+ New journey →</Link>
           </div>
 
-          <div className="bg-white border border-[#E8E3D9] rounded-xl px-5 py-5">
-            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase">COUNSELLOR DESK</p>
-            <h3 className="font-serif text-lg text-[#1C1917] mb-4">{unreadCount ?? 0} messages need you</h3>
+          <div className="bg-platinum border border-pale-sky rounded-xl px-5 py-5">
+            <p className="text-[10px] tracking-widest text-blue-slate uppercase">COUNSELLOR DESK</p>
+            <h3 className="font-serif text-lg text-graphite mb-4">{unreadCount ?? 0} messages need you</h3>
             <div className="space-y-3">
               {unreadMessages?.map(m => {
                 const sender = m.sender as { full_name: string } | null
                 const booking = m.booking as { ref: string; current_location: string | null; journey: { title: string } | null } | null
                 return (
                   <Link key={m.id} href="/admin/counsel" className="flex items-start gap-3 group">
-                    <div className="w-7 h-7 rounded-full bg-[#F5F0E8] flex items-center justify-center shrink-0">
-                      <span className="text-[10px] text-[#B89A4E] font-medium">{(sender?.full_name ?? 'U')[0]}</span>
+                    <div className="w-7 h-7 rounded-full bg-pale-sky flex items-center justify-center shrink-0">
+                      <span className="text-[10px] text-metallic-gold font-medium">{(sender?.full_name ?? 'U')[0]}</span>
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-medium text-[#1C1917] truncate group-hover:text-[#B89A4E]">{sender?.full_name}</p>
-                      {booking?.current_location && <p className="text-[9px] tracking-widest text-[#B89A4E] uppercase">{booking.current_location}</p>}
-                      <p className="text-xs text-[#9C9589] truncate">&ldquo;{m.content}&rdquo;</p>
+                      <p className="text-xs font-medium text-graphite truncate group-hover:text-metallic-gold">{sender?.full_name}</p>
+                      {booking?.current_location && <p className="text-[9px] tracking-widest text-metallic-gold uppercase">{booking.current_location}</p>}
+                      <p className="text-xs text-blue-slate truncate">&ldquo;{m.content}&rdquo;</p>
                     </div>
                   </Link>
                 )
               })}
             </div>
-            <Link href="/admin/counsel" className="block mt-4 text-xs text-[#B89A4E] hover:underline">Open inbox →</Link>
+            <Link href="/admin/counsel" className="block mt-4 text-xs text-metallic-gold hover:underline">Open inbox →</Link>
           </div>
         </div>
       </div>

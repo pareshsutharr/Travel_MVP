@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import SoluraLogo from '@/app/components/SoluraLogo'
 import { Suspense, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Check } from 'lucide-react'
@@ -28,7 +29,7 @@ const tripTravelers: Record<string, number> = {
 
 export default function ConfirmPage() {
   return (
-    <Suspense fallback={<div className="text-sm text-[#9C9589]">Preparing confirmation...</div>}>
+    <Suspense fallback={<div className="text-sm text-blue-slate">Preparing confirmation...</div>}>
       <ConfirmContent />
     </Suspense>
   )
@@ -115,35 +116,35 @@ function ConfirmContent() {
 
   if (confirmedId) {
     return (
-      <div className="rounded-2xl border border-[#E8E3D9] bg-white p-10 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check /></div>
-        <h1 className="font-serif text-3xl text-[#1C1917]">Your journey is confirmed.</h1>
-        <p className="mt-2 text-sm text-[#9C9589]">The booking was saved in Supabase. Soma will be in touch before departure.</p>
-        <Link href={`/dashboard/trips/${confirmedId}`} className="mt-6 inline-flex rounded-full bg-[#1C1917] px-6 py-3 text-sm text-white">View trip -&gt;</Link>
+      <div className="rounded-2xl border border-pale-sky bg-platinum p-10 text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-status-soft text-success"><Check /></div>
+        <h1 className="font-serif text-3xl text-graphite">Your journey is confirmed.</h1>
+        <p className="mt-2 text-sm text-blue-slate">The booking was saved in Supabase. Soma will be in touch before departure.</p>
+        <Link href={`/dashboard/trips/${confirmedId}`} className="mt-6 inline-flex rounded-full bg-graphite px-6 py-3 text-sm text-platinum">View trip -&gt;</Link>
       </div>
     )
   }
 
   return (
-    <div className="mx-auto max-w-sm rounded-2xl border border-[#E8E3D9] bg-white p-6 shadow-sm">
-      <p className="text-right font-mono text-xs text-[#9C9589]">NO. 04-2026-EH</p>
+    <div className="mx-auto max-w-sm rounded-2xl border border-pale-sky bg-platinum p-6 shadow-sm">
+      <p className="text-right font-mono text-xs text-blue-slate">NO. 04-2026-EH</p>
       <div className="text-center">
-        <p className="font-serif text-2xl text-[#1C1917]">SOLURA</p>
-        <p className="text-[10px] uppercase tracking-widest text-[#9C9589]">Itinerary · 14 days · {tripType} trip</p>
-        <h1 className="mt-2 font-serif text-2xl italic text-[#B89A4E]">The Slow Ganges</h1>
+        <SoluraLogo className="w-36" />
+        <p className="text-[10px] uppercase tracking-widest text-blue-slate">Itinerary · 14 days · {tripType} trip</p>
+        <h1 className="mt-2 font-serif text-2xl italic text-metallic-gold">The Slow Ganges</h1>
       </div>
-      <div className="my-6 border-t border-dashed border-[#E8E3D9]" />
+      <div className="my-6 border-t border-dashed border-pale-sky" />
       {rows.map(([label, amount]) => (
-        <p key={label} className="flex justify-between border-b border-[#E8E3D9] py-2 text-xs text-[#1C1917]">
+        <p key={label} className="flex justify-between border-b border-pale-sky py-2 text-xs text-graphite">
           <span>{label}</span>
           <span>{amount < 0 ? '-' : ''}${Math.abs(amount).toLocaleString()}.00</span>
         </p>
       ))}
-      <div className="flex items-center justify-between py-5"><p className="text-xs uppercase tracking-widest text-[#9C9589]">Total</p><p className="font-serif text-4xl text-[#1C1917]">$7,158</p></div>
-      <div className="rounded-lg border border-dashed border-[#B89A4E] py-2 text-center font-serif italic text-[#B89A4E]">ready · 03 may 2026</div>
-      <p className="my-5 text-center font-serif italic text-[#9C9589]">Carry only what cannot be bought at the destination.</p>
-      {error && <p className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-center text-xs text-red-600">{error}</p>}
-      <button onClick={confirmBooking} disabled={loading} className="w-full rounded-full border border-[#B89A4E] py-3 text-center text-xs uppercase tracking-widest text-[#B89A4E] transition-colors hover:bg-[#B89A4E] hover:text-white disabled:opacity-50">
+      <div className="flex items-center justify-between py-5"><p className="text-xs uppercase tracking-widest text-blue-slate">Total</p><p className="font-serif text-4xl text-graphite">$7,158</p></div>
+      <div className="rounded-lg border border-dashed border-metallic-gold py-2 text-center font-serif italic text-metallic-gold">ready · 03 may 2026</div>
+      <p className="my-5 text-center font-serif italic text-blue-slate">Carry only what cannot be bought at the destination.</p>
+      {error && <p className="mb-4 rounded-lg bg-status-soft px-3 py-2 text-center text-xs text-danger">{error}</p>}
+      <button onClick={confirmBooking} disabled={loading} className="w-full rounded-full border border-metallic-gold py-3 text-center text-xs uppercase tracking-widest text-metallic-gold transition-colors hover:bg-metallic-gold hover:text-platinum disabled:opacity-50">
         {loading ? 'Saving booking...' : 'Confirm · One Tap'}
       </button>
     </div>

@@ -17,7 +17,7 @@ const rows = [
 
 export default function ReviewPage() {
   return (
-    <Suspense fallback={<div className="text-sm text-[#9C9589]">Loading basket...</div>}>
+    <Suspense fallback={<div className="text-sm text-blue-slate">Loading basket...</div>}>
       <ReviewContent />
     </Suspense>
   )
@@ -29,9 +29,9 @@ function ReviewContent() {
   const type = searchParams.get('type') ?? 'couple'
   const journey = searchParams.get('journey') ?? 'the-slow-ganges'
   return (
-    <div><p className="mb-3 text-xs uppercase tracking-widest text-[#B89A4E]">Review</p><h1 className="font-serif text-4xl text-[#1C1917]">One basket. <span className="italic text-[#B89A4E]">One tap.</span></h1><p className="mt-3 text-xs uppercase tracking-widest text-[#B89A4E]">The Slow Ganges · 14 days</p>
-      <div className="mt-6 rounded-xl border border-[#E8E3D9] bg-white p-5">{rows.map(([label, amount]) => <div key={String(label)} className="flex justify-between gap-5 border-b border-[#E8E3D9] py-3"><p className="text-sm leading-6 text-[#1C1917]">{label}</p><p className="whitespace-nowrap text-sm text-[#1C1917]">${Number(amount).toLocaleString()}</p></div>)}<div className="flex justify-between border-b border-[#E8E3D9] py-3 text-[#B89A4E]"><p>Bundle discount</p><p>-$612</p></div><div className="flex justify-between pt-5"><p className="text-xs uppercase tracking-widest text-[#9C9589]">Total · 2 travellers</p><p className="font-serif text-4xl text-[#1C1917]">$7,158</p></div><p className="mt-2 text-xs text-[#9C9589]">One-click checkout includes flights, stays, cabs, visas, SIM, language help, food guidance, guide, GPS, insurance and destination manager support.</p></div>
-      <div className="mt-6 flex justify-between"><button onClick={() => router.back()} className="rounded-full border border-[#1C1917] px-6 py-3 text-sm">Adjust</button><button onClick={() => router.push(`/build/confirm?type=${type}&journey=${journey}`)} className="rounded-full bg-[#B89A4E] px-6 py-3 text-sm text-white">Confirm in one tap -&gt;</button></div>
+    <div><p className="mb-3 text-xs uppercase tracking-widest text-metallic-gold">Review</p><h1 className="font-serif text-4xl text-graphite">One basket. <span className="italic text-metallic-gold">One tap.</span></h1><p className="mt-3 text-xs uppercase tracking-widest text-metallic-gold">The Slow Ganges · 14 days</p>
+      <div className="mt-6 rounded-xl border border-pale-sky bg-platinum p-5">{rows.map(([label, amount]) => <div key={String(label)} className="flex justify-between gap-5 border-b border-pale-sky py-3"><p className="text-sm leading-6 text-graphite">{label}</p><p className="whitespace-nowrap text-sm text-graphite">${Number(amount).toLocaleString()}</p></div>)}<div className="flex justify-between border-b border-pale-sky py-3 text-metallic-gold"><p>Bundle discount</p><p>-$612</p></div><div className="flex justify-between pt-5"><p className="text-xs uppercase tracking-widest text-blue-slate">Total · 2 travellers</p><p className="font-serif text-4xl text-graphite">$7,158</p></div><p className="mt-2 text-xs text-blue-slate">One-click checkout includes flights, stays, cabs, visas, SIM, language help, food guidance, guide, GPS, insurance and destination manager support.</p></div>
+      <div className="mt-6 flex justify-between"><button onClick={() => router.back()} className="rounded-full border border-graphite px-6 py-3 text-sm">Adjust</button><button onClick={() => router.push(`/build/confirm?type=${type}&journey=${journey}`)} className="rounded-full bg-metallic-gold px-6 py-3 text-sm text-platinum">Confirm in one tap -&gt;</button></div>
     </div>
   )
 }

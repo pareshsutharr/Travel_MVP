@@ -70,6 +70,8 @@ export interface ItineraryDay {
   place: string
   stay: string
   notes: string
+  lat?: number | null
+  lng?: number | null
 }
 
 export interface Booking {
@@ -280,6 +282,24 @@ export interface HotelSuggestion {
   image_url: string | null
   amenities: string[]
   is_recommended: boolean
+  created_at: string
+}
+
+export type HighlightType = 'image' | 'video' | 'audio' | 'link'
+
+export interface TripHighlight {
+  id: string
+  booking_id: string | null
+  user_id: string
+  journey_id: string | null
+  type: HighlightType
+  url: string
+  thumbnail_url: string | null
+  caption: string | null
+  day_number: number | null
+  location_name: string | null
+  is_admin_post: boolean
+  is_public: boolean
   created_at: string
 }
 

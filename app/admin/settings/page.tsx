@@ -41,8 +41,8 @@ export default async function AdminSettings() {
   return (
     <div className="max-w-4xl px-4 sm:px-8 py-6 sm:py-8">
       <div className="mb-8 px-0">
-        <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-1">Super Admin</p>
-        <h1 className="font-serif text-2xl sm:text-3xl text-[#1C1917]">Settings</h1>
+        <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-1">Super Admin</p>
+        <h1 className="font-serif text-2xl sm:text-3xl text-graphite">Settings</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -52,36 +52,36 @@ export default async function AdminSettings() {
 
         <aside className="space-y-5">
           {/* Account */}
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-5">
-            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-3">Your account</p>
-            <p className="text-sm font-medium text-[#1C1917]">{profile?.full_name}</p>
-            <p className="text-xs text-[#9C9589]">{profile?.email}</p>
-            <span className="mt-2 inline-block rounded-full bg-[#F5F0E8] px-2.5 py-0.5 text-xs capitalize text-[#B89A4E]">{profile?.role}</span>
+          <div className="rounded-xl border border-pale-sky bg-platinum p-5">
+            <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-3">Your account</p>
+            <p className="text-sm font-medium text-graphite">{profile?.full_name}</p>
+            <p className="text-xs text-blue-slate">{profile?.email}</p>
+            <span className="mt-2 inline-block rounded-full bg-pale-sky px-2.5 py-0.5 text-xs capitalize text-metallic-gold">{profile?.role}</span>
           </div>
 
           {/* Demo accounts */}
-          <div className="rounded-xl border border-[#B89A4E]/20 bg-[#F5F0E8] p-5">
-            <p className="text-[10px] tracking-widest text-[#B89A4E] uppercase mb-3">Demo accounts</p>
-            <div className="space-y-1.5 font-mono text-xs text-[#1C1917]">
-              <p className="font-sans text-[10px] text-[#9C9589] uppercase tracking-widest">Admin</p>
+          <div className="rounded-xl border border-metallic-gold/20 bg-pale-sky p-5">
+            <p className="text-[10px] tracking-widest text-metallic-gold uppercase mb-3">Demo accounts</p>
+            <div className="space-y-1.5 font-mono text-xs text-graphite">
+              <p className="font-sans text-[10px] text-blue-slate uppercase tracking-widest">Admin</p>
               <p>admin@solura.travel</p>
-              <p className="text-[#9C9589]">Admin@123</p>
-              <p className="mt-2 font-sans text-[10px] text-[#9C9589] uppercase tracking-widest">Counsellor</p>
+              <p className="text-blue-slate">Admin@123</p>
+              <p className="mt-2 font-sans text-[10px] text-blue-slate uppercase tracking-widest">Counsellor</p>
               <p>anika@solura.travel</p>
-              <p className="text-[#9C9589]">Anika@123</p>
-              <p className="mt-2 font-sans text-[10px] text-[#9C9589] uppercase tracking-widest">User</p>
+              <p className="text-blue-slate">Anika@123</p>
+              <p className="mt-2 font-sans text-[10px] text-blue-slate uppercase tracking-widest">User</p>
               <p>eleanor@example.com</p>
-              <p className="text-[#9C9589]">Eleanor@123</p>
+              <p className="text-blue-slate">Eleanor@123</p>
             </div>
           </div>
 
           {/* Platform scope */}
-          <div className="rounded-xl border border-[#E8E3D9] bg-white p-5">
-            <p className="text-[10px] tracking-widest text-[#9C9589] uppercase mb-3">Platform scope</p>
+          <div className="rounded-xl border border-pale-sky bg-platinum p-5">
+            <p className="text-[10px] tracking-widest text-blue-slate uppercase mb-3">Platform scope</p>
             <div className="space-y-1.5">
               {platformItems.map((item) => (
-                <p key={item} className="text-xs leading-5 text-[#1C1917]">
-                  <span className="text-[#B89A4E] mr-1.5">✓</span>{item}
+                <p key={item} className="text-xs leading-5 text-graphite">
+                  <span className="text-metallic-gold mr-1.5">✓</span>{item}
                 </p>
               ))}
             </div>

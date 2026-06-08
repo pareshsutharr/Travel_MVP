@@ -26,7 +26,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: { boo
     router.refresh()
   }
 
-  if (options.length === 0) return <p className="text-xs text-[#9C9589]">No further status changes.</p>
+  if (options.length === 0) return <p className="text-xs text-blue-slate">No further status changes.</p>
 
   return (
     <div className="space-y-2">
@@ -35,7 +35,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: { boo
           key={status}
           disabled={Boolean(loading)}
           onClick={() => updateStatus(status)}
-          className="w-full rounded-lg border border-[#E8E3D9] px-4 py-2.5 text-left text-sm text-[#1C1917] transition-colors hover:border-[#B89A4E] hover:bg-[#F5F0E8] disabled:opacity-50"
+          className="w-full rounded-lg border border-pale-sky px-4 py-2.5 text-left text-sm text-graphite transition-colors hover:border-metallic-gold hover:bg-pale-sky disabled:opacity-50"
         >
           {loading === status ? 'Updating...' : `Mark ${getStatusLabel(status)}`}
         </button>

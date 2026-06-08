@@ -9,9 +9,9 @@ import type { Guide, GuideBooking } from '@/types/database'
 type GuideBookingRow = GuideBooking & { guide: Guide | null }
 
 const STATUS_STYLE: Record<string, string> = {
-  pending: 'bg-amber-50 text-amber-600',
-  confirmed: 'bg-emerald-50 text-emerald-600',
-  cancelled: 'bg-red-50 text-red-500',
+  pending: 'bg-status-soft text-warning',
+  confirmed: 'bg-status-soft text-success',
+  cancelled: 'bg-status-soft text-danger',
 }
 
 export default function GuideManager({ guides, bookings }: { guides: Guide[]; bookings: GuideBookingRow[] }) {
@@ -46,12 +46,12 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
   return (
     <div>
       {/* Tabs */}
-      <div className="mb-5 flex gap-1 rounded-xl bg-[#F5F0E8] p-1 w-fit">
+      <div className="mb-5 flex gap-1 rounded-xl bg-pale-sky p-1 w-fit">
         {(['guides', 'requests'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`rounded-lg px-5 py-2 text-xs capitalize transition-colors ${tab === t ? 'bg-white text-[#1C1917] shadow-sm' : 'text-[#9C9589]'}`}
+            className={`rounded-lg px-5 py-2 text-xs capitalize transition-colors ${tab === t ? 'bg-platinum text-graphite shadow-sm' : 'text-blue-slate'}`}
           >
             {t === 'requests' ? `Booking requests ${bookings.filter(b => b.status === 'pending').length > 0 ? `(${bookings.filter(b => b.status === 'pending').length})` : ''}` : 'Guides'}
           </button>
@@ -59,44 +59,44 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
       </div>
 
       {tab === 'guides' && (
-        <div className="overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white">
+        <div className="overflow-x-auto rounded-xl border border-pale-sky bg-platinum">
           <table className="w-full min-w-[700px]">
-            <thead className="bg-[#FAFAF8]">
+            <thead className="bg-platinum">
               <tr>
                 {['GUIDE', 'LOCATION', 'SPECIALIZATIONS', 'RATING', 'PRICE/DAY', 'STATUS', 'ACTIONS'].map((h) => (
-                  <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-[#9C9589]">{h}</th>
+                  <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-blue-slate">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {guides.map((g) => (
-                <tr key={g.id} className="border-t border-[#E8E3D9] hover:bg-[#FAFAF8]">
+                <tr key={g.id} className="border-t border-pale-sky hover:bg-platinum">
                   <td className="px-5 py-4">
-                    <p className="text-sm font-medium text-[#1C1917]">{g.name}</p>
-                    <p className="text-xs text-[#9C9589]">{g.languages.join(', ')}</p>
+                    <p className="text-sm font-medium text-graphite">{g.name}</p>
+                    <p className="text-xs text-blue-slate">{g.languages.join(', ')}</p>
                   </td>
-                  <td className="px-5 py-4 text-sm text-[#9C9589]">{g.location}, {g.country}</td>
+                  <td className="px-5 py-4 text-sm text-blue-slate">{g.location}, {g.country}</td>
                   <td className="px-5 py-4">
                     <div className="flex flex-wrap gap-1">
                       {g.specializations.map((s) => (
-                        <span key={s} className="rounded-full bg-[#F5F0E8] px-2 py-0.5 text-[9px] capitalize text-[#B89A4E]">{s}</span>
+                        <span key={s} className="rounded-full bg-pale-sky px-2 py-0.5 text-[9px] capitalize text-metallic-gold">{s}</span>
                       ))}
                     </div>
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1">
-                      <Star size={12} className="text-[#B89A4E] fill-[#B89A4E]" />
-                      <span className="text-sm text-[#1C1917]">{g.rating}</span>
-                      <span className="text-xs text-[#9C9589]">({g.review_count})</span>
+                      <Star size={12} className="text-metallic-gold fill-metallic-gold" />
+                      <span className="text-sm text-graphite">{g.rating}</span>
+                      <span className="text-xs text-blue-slate">({g.review_count})</span>
                     </div>
                   </td>
-                  <td className="px-5 py-4 text-sm text-[#1C1917]">${g.price_per_day}</td>
+                  <td className="px-5 py-4 text-sm text-graphite">${g.price_per_day}</td>
                   <td className="px-5 py-4">
                     <div className="space-y-1">
-                      <span className={`block rounded-full px-2 py-0.5 text-center text-[10px] ${g.is_available ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'}`}>
+                      <span className={`block rounded-full px-2 py-0.5 text-center text-[10px] ${g.is_available ? 'bg-status-soft text-success' : 'bg-status-soft text-danger'}`}>
                         {g.is_available ? 'Available' : 'Unavailable'}
                       </span>
-                      {g.is_featured && <span className="block rounded-full bg-[#F5F0E8] px-2 py-0.5 text-center text-[10px] text-[#B89A4E]">Featured</span>}
+                      {g.is_featured && <span className="block rounded-full bg-pale-sky px-2 py-0.5 text-center text-[10px] text-metallic-gold">Featured</span>}
                     </div>
                   </td>
                   <td className="px-5 py-4">
@@ -104,14 +104,14 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
                       <button
                         onClick={() => toggleAvailability(g)}
                         disabled={saving === g.id}
-                        className="rounded-full border border-[#E8E3D9] px-3 py-1 text-xs text-[#1C1917] hover:border-[#B89A4E] disabled:opacity-40"
+                        className="rounded-full border border-pale-sky px-3 py-1 text-xs text-graphite hover:border-metallic-gold disabled:opacity-40"
                       >
                         {g.is_available ? 'Mark unavail.' : 'Mark avail.'}
                       </button>
                       <button
                         onClick={() => toggleFeatured(g)}
                         disabled={saving === g.id}
-                        className="rounded-full border border-[#E8E3D9] px-3 py-1 text-xs text-[#9C9589] hover:border-[#B89A4E] disabled:opacity-40"
+                        className="rounded-full border border-pale-sky px-3 py-1 text-xs text-blue-slate hover:border-metallic-gold disabled:opacity-40"
                       >
                         {g.is_featured ? 'Unfeature' : 'Feature'}
                       </button>
@@ -125,23 +125,23 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
       )}
 
       {tab === 'requests' && (
-        <div className="overflow-x-auto rounded-xl border border-[#E8E3D9] bg-white">
+        <div className="overflow-x-auto rounded-xl border border-pale-sky bg-platinum">
           <table className="w-full min-w-[600px]">
-            <thead className="bg-[#FAFAF8]">
+            <thead className="bg-platinum">
               <tr>
                 {['GUIDE', 'DATES', 'DAYS', 'AMOUNT', 'NOTES', 'STATUS', 'ACTIONS'].map((h) => (
-                  <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-[#9C9589]">{h}</th>
+                  <th key={h} className="px-5 py-3 text-left text-[10px] font-normal uppercase tracking-widest text-blue-slate">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {bookings.map((b) => (
-                <tr key={b.id} className="border-t border-[#E8E3D9] hover:bg-[#FAFAF8]">
-                  <td className="px-5 py-4 text-sm font-medium text-[#1C1917]">{b.guide?.name ?? '—'}</td>
-                  <td className="px-5 py-4 text-xs text-[#9C9589]">{b.start_date}</td>
-                  <td className="px-5 py-4 text-sm text-[#1C1917]">{b.days}</td>
-                  <td className="px-5 py-4 text-sm text-[#1C1917]">${b.amount_usd}</td>
-                  <td className="px-5 py-4 text-xs text-[#9C9589] max-w-[150px] truncate">{b.notes ?? '—'}</td>
+                <tr key={b.id} className="border-t border-pale-sky hover:bg-platinum">
+                  <td className="px-5 py-4 text-sm font-medium text-graphite">{b.guide?.name ?? '—'}</td>
+                  <td className="px-5 py-4 text-xs text-blue-slate">{b.start_date}</td>
+                  <td className="px-5 py-4 text-sm text-graphite">{b.days}</td>
+                  <td className="px-5 py-4 text-sm text-graphite">${b.amount_usd}</td>
+                  <td className="px-5 py-4 text-xs text-blue-slate max-w-[150px] truncate">{b.notes ?? '—'}</td>
                   <td className="px-5 py-4">
                     <span className={`rounded-full px-2.5 py-0.5 text-[10px] capitalize ${STATUS_STYLE[b.status]}`}>{b.status}</span>
                   </td>
@@ -151,14 +151,14 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
                         <button
                           onClick={() => updateBookingStatus(b.id, 'confirmed')}
                           disabled={saving === b.id}
-                          className="rounded-full bg-emerald-600 px-3 py-1 text-xs text-white hover:bg-emerald-700 disabled:opacity-40"
+                          className="rounded-full bg-success px-3 py-1 text-xs text-platinum hover:bg-success disabled:opacity-40"
                         >
                           Confirm
                         </button>
                         <button
                           onClick={() => updateBookingStatus(b.id, 'cancelled')}
                           disabled={saving === b.id}
-                          className="rounded-full border border-[#E8E3D9] px-3 py-1 text-xs text-red-500 hover:border-red-300 disabled:opacity-40"
+                          className="rounded-full border border-pale-sky px-3 py-1 text-xs text-danger hover:border-danger disabled:opacity-40"
                         >
                           Cancel
                         </button>
@@ -168,7 +168,7 @@ export default function GuideManager({ guides, bookings }: { guides: Guide[]; bo
                 </tr>
               ))}
               {bookings.length === 0 && (
-                <tr><td colSpan={7} className="px-5 py-8 text-center text-sm text-[#9C9589]">No guide booking requests yet.</td></tr>
+                <tr><td colSpan={7} className="px-5 py-8 text-center text-sm text-blue-slate">No guide booking requests yet.</td></tr>
               )}
             </tbody>
           </table>

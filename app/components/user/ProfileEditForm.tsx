@@ -6,8 +6,8 @@ import { createClient } from '@/lib/supabase/client'
 import { Save, Check } from 'lucide-react'
 import type { Profile } from '@/types/database'
 
-const inputClass = 'w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2.5 text-sm text-[#1C1917] outline-none focus:border-[#B89A4E] transition-colors'
-const labelClass = 'block text-[10px] tracking-widest uppercase text-[#9C9589] mb-1.5'
+const inputClass = 'w-full rounded-lg border border-pale-sky bg-platinum px-4 py-2.5 text-sm text-graphite outline-none focus:border-metallic-gold transition-colors'
+const labelClass = 'block text-[10px] tracking-widest uppercase text-blue-slate mb-1.5'
 
 const TRAVEL_STYLES = ['Spiritual', 'Wellness', 'Heritage', 'Adventure', 'Slow travel', 'Culture', 'Nature', 'Pilgrimage']
 const PACE = ['Very slow', 'Slow', 'Moderate', 'Active']
@@ -54,8 +54,8 @@ export default function ProfileEditForm({ profile }: { profile: Profile }) {
   }
 
   return (
-    <div className="rounded-xl border border-[#E8E3D9] bg-white p-6 space-y-5">
-      <h2 className="font-serif text-xl text-[#1C1917]">Edit profile</h2>
+    <div className="rounded-xl border border-pale-sky bg-platinum p-6 space-y-5">
+      <h2 className="font-serif text-xl text-graphite">Edit profile</h2>
 
       <div className="grid gap-4">
         <div>
@@ -80,7 +80,7 @@ export default function ProfileEditForm({ profile }: { profile: Profile }) {
               key={s}
               type="button"
               onClick={() => toggleStyle(s)}
-              className={`rounded-full px-3 py-1 text-xs transition-colors ${styles.includes(s) ? 'bg-[#1C1917] text-white' : 'border border-[#E8E3D9] text-[#9C9589] hover:border-[#B89A4E]'}`}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${styles.includes(s) ? 'bg-graphite text-platinum' : 'border border-pale-sky text-blue-slate hover:border-metallic-gold'}`}
             >
               {s}
             </button>
@@ -96,7 +96,7 @@ export default function ProfileEditForm({ profile }: { profile: Profile }) {
               key={p}
               type="button"
               onClick={() => setPace(p)}
-              className={`rounded-full px-3 py-1 text-xs transition-colors ${pace === p ? 'bg-[#B89A4E] text-white' : 'border border-[#E8E3D9] text-[#9C9589] hover:border-[#B89A4E]'}`}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${pace === p ? 'bg-metallic-gold text-platinum' : 'border border-pale-sky text-blue-slate hover:border-metallic-gold'}`}
             >
               {p}
             </button>
@@ -104,12 +104,12 @@ export default function ProfileEditForm({ profile }: { profile: Profile }) {
         </div>
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
+      {error && <p className="rounded-lg bg-status-soft px-3 py-2 text-xs text-danger">{error}</p>}
 
       <button
         onClick={save}
         disabled={saving || !fullName.trim()}
-        className="flex items-center gap-2 rounded-full bg-[#1C1917] px-6 py-2.5 text-sm text-white transition-colors hover:bg-[#B89A4E] disabled:opacity-40"
+        className="flex items-center gap-2 rounded-full bg-graphite px-6 py-2.5 text-sm text-platinum transition-colors hover:bg-metallic-gold disabled:opacity-40"
       >
         {saved ? <Check size={14} /> : <Save size={14} />}
         {saved ? 'Saved' : saving ? 'Saving…' : 'Save profile'}

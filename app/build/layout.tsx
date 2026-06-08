@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import SoluraLogo from '@/app/components/SoluraLogo'
 
 const STEPS = [
   { n: 1, label: 'Travel type' },
@@ -9,28 +10,23 @@ const STEPS = [
 
 export default function BuildLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#FAFAF8]">
-      <header className="border-b border-[#E8E3D9] bg-white px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full border border-[#B89A4E] flex items-center justify-center">
-            <span className="font-serif text-[#B89A4E] text-xs">S</span>
-          </div>
-          <span className="font-serif text-[#1C1917] text-sm tracking-wider">SOLURA</span>
-        </Link>
+    <div className="min-h-screen bg-platinum">
+      <header className="border-b border-pale-sky bg-platinum px-6 py-4 flex items-center justify-between">
+        <SoluraLogo href="/" className="w-24 sm:w-28" />
         <div className="flex items-center gap-6">
           {STEPS.map((s, i) => (
             <div key={s.n} className="flex items-center gap-2">
-              {i > 0 && <div className="w-6 h-px bg-[#E8E3D9]" />}
+              {i > 0 && <div className="w-6 h-px bg-pale-sky" />}
               <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-full bg-[#F5F0E8] border border-[#E8E3D9] flex items-center justify-center">
-                  <span className="text-[10px] text-[#9C9589]">{s.n}</span>
+                <div className="w-5 h-5 rounded-full bg-pale-sky border border-pale-sky flex items-center justify-center">
+                  <span className="text-[10px] text-blue-slate">{s.n}</span>
                 </div>
-                <span className="text-xs text-[#9C9589] hidden sm:block">{s.label}</span>
+                <span className="text-xs text-blue-slate hidden sm:block">{s.label}</span>
               </div>
             </div>
           ))}
         </div>
-        <Link href="/sign-in" className="text-xs text-[#9C9589] hover:text-[#1C1917]">Sign in</Link>
+        <Link href="/sign-in" className="text-xs text-blue-slate hover:text-graphite">Sign in</Link>
       </header>
       <div className="max-w-2xl mx-auto px-4 py-12">{children}</div>
     </div>

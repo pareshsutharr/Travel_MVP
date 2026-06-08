@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AuthSync from "@/app/components/AuthSync";
 
 export const metadata: Metadata = {
   title: "Solura Travel · India & Nepal",
@@ -13,7 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: '#FAFAF8', color: '#1C1917' }}>
+      <body className="min-h-full flex flex-col">
+        <AuthSync />
         {children}
       </body>
     </html>

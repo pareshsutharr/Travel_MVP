@@ -6,8 +6,8 @@ import { Plus, Trash2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { ItineraryDay, JourneyCategory, JourneyDifficulty, JourneyStatus } from '@/types/database'
 
-const labelClass = 'block text-[10px] tracking-widest uppercase text-[#9C9589] mb-1.5'
-const inputClass = 'w-full rounded-lg border border-[#E8E3D9] bg-[#FAFAF8] px-4 py-2.5 text-sm text-[#1C1917] outline-none focus:border-[#B89A4E]'
+const labelClass = 'block text-[10px] tracking-widest uppercase text-blue-slate mb-1.5'
+const inputClass = 'w-full rounded-lg border border-pale-sky bg-platinum px-4 py-2.5 text-sm text-graphite outline-none focus:border-metallic-gold'
 
 function slugify(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -73,8 +73,8 @@ export default function NewJourneyForm() {
 
   return (
     <div className="max-w-3xl space-y-6">
-      <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-        <h2 className="mb-4 font-serif text-xl text-[#1C1917]">Create trip</h2>
+      <div className="rounded-xl border border-pale-sky bg-platinum p-6">
+        <h2 className="mb-4 font-serif text-xl text-graphite">Create trip</h2>
         <div className="grid gap-4">
           <div><label className={labelClass}>Trip title</label><input className={inputClass} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Kashi after Dusk" /></div>
           <div><label className={labelClass}>Subtitle</label><input className={inputClass} value={subtitle} onChange={(event) => setSubtitle(event.target.value)} placeholder="A slow evening route through Varanasi" /></div>
@@ -94,18 +94,18 @@ export default function NewJourneyForm() {
             <div><label className={labelClass}>Max travelers</label><input type="number" min={1} className={inputClass} value={maxTravelers} onChange={(e) => setMaxTravelers(Number(e.target.value))} /></div>
           </div>
           <div><label className={labelClass}>Cover image URL (optional)</label><input className={inputClass} value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://…" /></div>
-          <label className="flex items-center gap-2 text-sm text-[#1C1917]"><input type="checkbox" checked={featured} onChange={(event) => setFeatured(event.target.checked)} /> Feature on public website</label>
+          <label className="flex items-center gap-2 text-sm text-graphite"><input type="checkbox" checked={featured} onChange={(event) => setFeatured(event.target.checked)} /> Feature on public website</label>
         </div>
       </div>
 
       <EditableList title="Highlights" items={highlights} setItems={setHighlights} />
       <EditableList title="Included services" items={included} setItems={setIncluded} />
 
-      <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-        <h2 className="mb-4 font-serif text-xl text-[#1C1917]">Itinerary</h2>
+      <div className="rounded-xl border border-pale-sky bg-platinum p-6">
+        <h2 className="mb-4 font-serif text-xl text-graphite">Itinerary</h2>
         <div className="space-y-3">
           {itinerary.map((item, index) => (
-            <div key={index} className="grid gap-2 rounded-lg border border-[#E8E3D9] p-3 sm:grid-cols-4">
+            <div key={index} className="grid gap-2 rounded-lg border border-pale-sky p-3 sm:grid-cols-4">
               {(['day', 'place', 'stay', 'notes'] as const).map((key) => (
                 <input
                   key={key}
@@ -119,14 +119,14 @@ export default function NewJourneyForm() {
                   }}
                 />
               ))}
-              <button className="text-red-500" onClick={() => setItinerary(itinerary.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={14} /></button>
+              <button className="text-danger" onClick={() => setItinerary(itinerary.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={14} /></button>
             </div>
           ))}
         </div>
-        <button className="mt-3 flex items-center gap-1 text-xs text-[#B89A4E]" onClick={() => setItinerary([...itinerary, { day: '', place: '', stay: '', notes: '' }])}><Plus size={13} /> Add day</button>
+        <button className="mt-3 flex items-center gap-1 text-xs text-metallic-gold" onClick={() => setItinerary([...itinerary, { day: '', place: '', stay: '', notes: '' }])}><Plus size={13} /> Add day</button>
       </div>
 
-      <button disabled={!title || saving} onClick={createJourney} className="rounded-full bg-[#1C1917] px-8 py-3 text-sm text-white transition-colors hover:bg-[#B89A4E] disabled:opacity-40">
+      <button disabled={!title || saving} onClick={createJourney} className="rounded-full bg-graphite px-8 py-3 text-sm text-platinum transition-colors hover:bg-metallic-gold disabled:opacity-40">
         {saving ? 'Creating...' : 'Create trip in Supabase'}
       </button>
     </div>
@@ -135,8 +135,8 @@ export default function NewJourneyForm() {
 
 function EditableList({ title, items, setItems }: { title: string; items: string[]; setItems: (items: string[]) => void }) {
   return (
-    <div className="rounded-xl border border-[#E8E3D9] bg-white p-6">
-      <h2 className="mb-4 font-serif text-xl text-[#1C1917]">{title}</h2>
+    <div className="rounded-xl border border-pale-sky bg-platinum p-6">
+      <h2 className="mb-4 font-serif text-xl text-graphite">{title}</h2>
       <div className="space-y-2">
         {items.map((item, index) => (
           <div key={index} className="flex gap-2">
@@ -145,11 +145,11 @@ function EditableList({ title, items, setItems }: { title: string; items: string
               next[index] = event.target.value
               setItems(next)
             }} />
-            <button className="text-red-500" onClick={() => setItems(items.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={14} /></button>
+            <button className="text-danger" onClick={() => setItems(items.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={14} /></button>
           </div>
         ))}
       </div>
-      <button className="mt-3 flex items-center gap-1 text-xs text-[#B89A4E]" onClick={() => setItems([...items, ''])}><Plus size={13} /> Add item</button>
+      <button className="mt-3 flex items-center gap-1 text-xs text-metallic-gold" onClick={() => setItems([...items, ''])}><Plus size={13} /> Add item</button>
     </div>
   )
 }

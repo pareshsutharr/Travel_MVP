@@ -20,24 +20,23 @@ export default function TestimonialsSection() {
   return (
     <section
       id="reviews"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8"
-      style={{ backgroundColor: '#FAFAF8' }}
+      className="bg-platinum px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="mb-12">
           <p
             className="text-xs tracking-widest uppercase mb-4"
-            style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#B89A4E', letterSpacing: '0.2em' }}
+            style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35', letterSpacing: '0.2em' }}
           >
             Reviews
           </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
-            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 400 }}
+            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#2D2F33', fontWeight: 400 }}
           >
             What the path{' '}
-            <em style={{ color: '#B89A4E', fontStyle: 'italic' }}>feels like.</em>
+            <em style={{ color: '#D4AF35', fontStyle: 'italic' }}>feels like.</em>
           </h2>
         </div>
 
@@ -46,13 +45,12 @@ export default function TestimonialsSection() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="rounded-2xl p-6 flex flex-col justify-between gap-6 transition-shadow duration-300 hover:shadow-md"
-              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E8E3D9' }}
+              className="flex flex-col justify-between gap-6 rounded-2xl border border-pale-sky bg-platinum p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               {/* Stars */}
               <div className="flex gap-1">
                 {[...Array(5)].map((_, si) => (
-                  <span key={si} style={{ color: '#B89A4E', fontSize: '0.875rem' }}>★</span>
+                  <span key={si} style={{ color: '#D4AF35', fontSize: '0.875rem' }}>★</span>
                 ))}
               </div>
 
@@ -61,7 +59,7 @@ export default function TestimonialsSection() {
                 className="text-lg lg:text-xl leading-relaxed flex-1"
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  color: '#1C1917',
+                  color: '#2D2F33',
                   fontStyle: 'italic',
                   fontWeight: 400,
                 }}
@@ -70,16 +68,16 @@ export default function TestimonialsSection() {
               </p>
 
               {/* Attribution */}
-              <div style={{ borderTop: '1px solid #E8E3D9', paddingTop: '1rem' }}>
+              <div style={{ borderTop: '1px solid #BFDDE7', paddingTop: '1rem' }}>
                 <p
                   className="text-sm font-medium mb-1"
-                  style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#1C1917', fontWeight: 500 }}
+                  style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#2D2F33', fontWeight: 500 }}
                 >
                   {t.name}
                 </p>
                 <p
                   className="text-xs"
-                  style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#B89A4E' }}
+                  style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35' }}
                 >
                   {t.journey}
                 </p>
@@ -90,49 +88,48 @@ export default function TestimonialsSection() {
 
         {/* Trust strip */}
         <div
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 py-8 rounded-2xl"
-          style={{ backgroundColor: '#F5F0E8' }}
+          className="mt-12 flex flex-col items-center justify-center gap-6 rounded-2xl bg-graphite py-8 sm:flex-row sm:gap-12"
         >
           <div className="text-center">
             <p
               className="text-3xl lg:text-4xl mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 500 }}
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#F3F7F8', fontWeight: 500 }}
             >
               4.9
             </p>
             <p
               className="text-xs tracking-widest uppercase"
-              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589', letterSpacing: '0.1em' }}
+              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#BFDDE7', letterSpacing: '0.1em' }}
             >
               Trustpilot Rating
             </p>
           </div>
-          <div className="hidden sm:block h-10 w-px" style={{ backgroundColor: '#E8E3D9' }} />
+          <div className="hidden h-10 w-px bg-platinum/15 sm:block" />
           <div className="text-center">
             <p
               className="text-3xl lg:text-4xl mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 500 }}
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#F3F7F8', fontWeight: 500 }}
             >
               1,420+
             </p>
             <p
               className="text-xs tracking-widest uppercase"
-              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589', letterSpacing: '0.1em' }}
+              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#BFDDE7', letterSpacing: '0.1em' }}
             >
               Journeys Completed
             </p>
           </div>
-          <div className="hidden sm:block h-10 w-px" style={{ backgroundColor: '#E8E3D9' }} />
+          <div className="hidden h-10 w-px bg-platinum/15 sm:block" />
           <div className="text-center">
             <p
               className="text-3xl lg:text-4xl mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#1C1917', fontWeight: 500 }}
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#F3F7F8', fontWeight: 500 }}
             >
               24×7
             </p>
             <p
               className="text-xs tracking-widest uppercase"
-              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#9C9589', letterSpacing: '0.1em' }}
+              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#BFDDE7', letterSpacing: '0.1em' }}
             >
               Live Counsel
             </p>

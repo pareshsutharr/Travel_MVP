@@ -39,15 +39,15 @@ export default function JourneyListActions({
       <button
         disabled={Boolean(busy)}
         onClick={() => update({ featured: !featured })}
-        className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${featured ? 'border-[#B89A4E] bg-[#F5F0E8] text-[#B89A4E]' : 'border-[#E8E3D9] text-[#9C9589] hover:border-[#B89A4E]'}`}
+        className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${featured ? 'border-metallic-gold bg-pale-sky text-metallic-gold' : 'border-pale-sky text-blue-slate hover:border-metallic-gold'}`}
         title={featured ? 'Remove featured' : 'Feature journey'}
       >
-        <Star size={13} className={featured ? 'fill-[#B89A4E]' : ''} />
+        <Star size={13} className={featured ? 'fill-metallic-gold' : ''} />
       </button>
       <button
         disabled={Boolean(busy)}
         onClick={() => update({ status: status === 'published' ? 'draft' : 'published' })}
-        className="rounded-full border border-[#E8E3D9] px-2.5 py-1 text-xs text-[#9C9589] transition-colors hover:border-[#B89A4E] hover:text-[#B89A4E]"
+        className="rounded-full border border-pale-sky px-2.5 py-1 text-xs text-blue-slate transition-colors hover:border-metallic-gold hover:text-metallic-gold"
         title={status === 'published' ? 'Unpublish' : 'Publish'}
       >
         {status === 'published' ? <EyeOff size={13} /> : <Eye size={13} />}
@@ -55,7 +55,7 @@ export default function JourneyListActions({
       <button
         disabled={Boolean(busy)}
         onClick={remove}
-        className="rounded-full border border-[#E8E3D9] px-2.5 py-1 text-xs text-red-500 transition-colors hover:border-red-200 hover:bg-red-50"
+        className="rounded-full border border-pale-sky px-2.5 py-1 text-xs text-danger transition-colors hover:border-danger hover:bg-status-soft"
         title="Delete journey"
       >
         <Trash2 size={13} />
