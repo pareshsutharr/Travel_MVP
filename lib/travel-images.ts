@@ -1,6 +1,12 @@
 import type { Journey } from '@/types/database'
 
 export const travelImages = {
+  travelerWallpaper: '/wp3067500-traveler-wallpapers.jpg',
+  travelUltraHd: '/wp5240504-travel-ultra-hd-wallpapers.jpg',
+  travelUltraHdAlt: '/wp5240579-travel-ultra-hd-wallpapers.jpg',
+  backpackWallpaper: '/wp6510008-bts-backpack-wallpapers.jpg',
+  europeWallpaper: '/wp9087904-4k-eu-wallpapers.jpg',
+  worldTravel: '/185289.jpg',
   varanasi:
     'https://commons.wikimedia.org/wiki/Special:FilePath/Varanasi%20ghats%20at%20the%20sunrise.JPG?width=1400',
   rishikesh:

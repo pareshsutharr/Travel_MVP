@@ -11,28 +11,22 @@ type SoluraLogoProps = {
 export default function SoluraLogo({
   className = 'w-36',
   href,
-  showTagline = false,
   variant = 'default',
 }: SoluraLogoProps) {
   const framed = variant === 'light'
 
   const logo = (
     <span className={`inline-flex flex-col ${className}`}>
-      <span className={framed ? 'rounded-xl bg-platinum/95 px-2 py-1 shadow-sm' : ''}>
+      <span className={framed ? 'rounded-xl bg-platinum px-2 py-1 shadow-sm' : ''}>
         <Image
-          src="/brand/solura-logo.svg"
+          src="/Solura Logo coloured transparent.png"
           alt="Solura"
-          width={1900}
-          height={420}
+          width={1415}
+          height={319}
           priority
           className="h-auto w-full"
         />
       </span>
-      {showTagline && (
-        <span className={`-mt-1 text-center text-[8px] uppercase tracking-[0.22em] ${variant === 'light' ? 'text-pale-sky' : 'text-blue-slate'}`}>
-          A radiant inner journey
-        </span>
-      )}
     </span>
   )
 

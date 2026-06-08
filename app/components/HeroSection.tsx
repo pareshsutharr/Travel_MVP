@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { ArrowRight, CalendarDays, MapPin, Search, Users } from 'lucide-react'
 import Link from 'next/link'
 import { travelImages } from '@/lib/travel-images'
@@ -8,16 +11,40 @@ const searchFields = [
   { icon: Users, eyebrow: 'Travellers', value: '2 travellers' },
 ]
 
+const heroImages = [
+  { src: travelImages.travelerWallpaper, alt: 'Traveller looking over a scenic destination' },
+  { src: travelImages.travelUltraHd, alt: 'Ultra high definition travel landscape' },
+  { src: travelImages.travelUltraHdAlt, alt: 'Dream travel destination wallpaper' },
+  { src: travelImages.backpackWallpaper, alt: 'Backpacker travel wallpaper' },
+  { src: travelImages.europeWallpaper, alt: 'European travel wallpaper' },
+]
+
 export default function HeroSection() {
+  const [activeImage, setActiveImage] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % heroImages.length)
+    }, 6000)
+    return () => window.clearInterval(timer)
+  }, [])
+
   return (
     <section className="relative min-h-[780px] overflow-visible bg-graphite">
-      <img
-        src={travelImages.annapurna}
-        alt="Himalayan mountains in Nepal"
-        className="absolute inset-0 h-full w-full object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-graphite/90 via-graphite/55 to-blue-slate/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-graphite/65 via-transparent to-graphite/30" />
+      <div className="absolute inset-0 overflow-hidden">
+        {heroImages.map((image, index) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            className={`absolute inset-0 h-full w-full object-cover object-center transition-all duration-[1600ms] ease-in-out ${
+              index === activeImage ? 'scale-100 opacity-100' : 'scale-105 opacity-0'
+            }`}
+          />
+        ))}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-graphite/48 via-graphite/18 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-graphite/22 via-transparent to-platinum/10" />
 
       <div className="relative mx-auto flex min-h-[780px] max-w-7xl items-center px-4 pb-40 pt-28 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
@@ -25,12 +52,12 @@ export default function HeroSection() {
             <span className="h-px w-10 bg-metallic-gold" />
             Your journey, thoughtfully handled
           </div>
-          <h1 className="max-w-3xl font-serif text-5xl leading-[0.96] text-platinum sm:text-6xl lg:text-8xl">
+          <h1 className="max-w-3xl font-serif text-5xl leading-[0.96] text-platinum drop-shadow-[0_3px_14px_rgba(45,47,51,0.55)] sm:text-6xl lg:text-8xl">
             Discover places
             <br />
             <span className="italic text-metallic-gold">you&apos;ll carry home.</span>
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-7 text-platinum/80 sm:text-lg">
+          <p className="mt-7 max-w-xl text-base leading-7 text-platinum drop-shadow-[0_2px_10px_rgba(45,47,51,0.5)] sm:text-lg">
             Curated spiritual and cultural journeys across India and Nepal, with every flight, stay,
             guide and quiet detail arranged around you.
           </p>
@@ -44,6 +71,20 @@ export default function HeroSection() {
             <Link href="/build/type" className="rounded-xl border border-platinum/35 px-7 py-4 text-sm text-platinum backdrop-blur transition hover:border-metallic-gold hover:text-metallic-gold">
               Plan with Soma
             </Link>
+          </div>
+
+          <div className="mt-9 flex items-center gap-2" aria-label="Hero image controls">
+            {heroImages.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                onClick={() => setActiveImage(index)}
+                aria-label={`Show image ${index + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === activeImage ? 'w-9 bg-metallic-gold' : 'w-3 bg-platinum/50 hover:bg-platinum'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
