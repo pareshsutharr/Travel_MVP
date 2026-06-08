@@ -3,7 +3,7 @@ import "./globals.css";
 import AuthSync from "@/app/components/AuthSync";
 
 export const metadata: Metadata = {
-  title: "Solura Travel · India & Nepal",
+  title: "Solura · A radiant inner journey",
   description: "Luxury curated journeys through India and Nepal. Flights, stays, guides, visas — all handled. You walk.",
 };
 

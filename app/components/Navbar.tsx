@@ -5,7 +5,11 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import SoluraLogo from './SoluraLogo'
 
-export default function Navbar() {
+type NavbarProps = {
+  transparentOnTop?: boolean
+}
+
+export default function Navbar({ transparentOnTop = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [authState, setAuthState] = useState<{ loggedIn: boolean; role: string | null }>({ loggedIn: false, role: null })
@@ -43,18 +47,20 @@ export default function Navbar() {
     { label: 'Reviews',       href: '/#reviews' },
   ]
 
+  const solid = !transparentOnTop || scrolled || menuOpen
+
   return (
-    <nav className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled || menuOpen ? 'border-b border-pale-sky bg-platinum/95 shadow-sm backdrop-blur-xl' : 'bg-transparent'}`}>
+    <nav className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${solid ? 'border-b border-pale-sky bg-platinum/95 shadow-sm backdrop-blur-xl' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <SoluraLogo href="/" showTagline variant={scrolled || menuOpen ? 'default' : 'light'} className="w-28 sm:w-32" />
+          <SoluraLogo href="/" showTagline variant={solid ? 'default' : 'light'} className="w-28 sm:w-32" />
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a key={link.label} href={link.href}
-                className={`text-sm font-medium transition-colors duration-200 hover:text-metallic-gold ${scrolled ? 'text-graphite' : 'text-platinum'}`}>
+                className={`text-sm font-medium transition-colors duration-200 hover:text-metallic-gold ${solid ? 'text-graphite' : 'text-platinum'}`}>
                 {link.label}
               </a>
             ))}
@@ -71,7 +77,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/sign-in"
-                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-200 ${scrolled ? 'text-graphite hover:bg-pale-sky' : 'text-platinum hover:bg-platinum/10'}`}>
+                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-200 ${solid ? 'text-graphite hover:bg-pale-sky' : 'text-platinum hover:bg-platinum/10'}`}>
                   Sign in
                 </Link>
                 <Link href="/build/type"
@@ -84,9 +90,9 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-            <span className={`block h-0.5 w-6 transition-transform duration-200 ${menuOpen ? 'translate-y-2 rotate-45' : ''} ${scrolled || menuOpen ? 'bg-graphite' : 'bg-platinum'}`} />
-            <span className={`block h-0.5 w-6 transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''} ${scrolled || menuOpen ? 'bg-graphite' : 'bg-platinum'}`} />
-            <span className={`block h-0.5 w-6 transition-transform duration-200 ${menuOpen ? '-translate-y-2 -rotate-45' : ''} ${scrolled || menuOpen ? 'bg-graphite' : 'bg-platinum'}`} />
+            <span className={`block h-0.5 w-6 transition-transform duration-200 ${menuOpen ? 'translate-y-2 rotate-45' : ''} ${solid ? 'bg-graphite' : 'bg-platinum'}`} />
+            <span className={`block h-0.5 w-6 transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''} ${solid ? 'bg-graphite' : 'bg-platinum'}`} />
+            <span className={`block h-0.5 w-6 transition-transform duration-200 ${menuOpen ? '-translate-y-2 -rotate-45' : ''} ${solid ? 'bg-graphite' : 'bg-platinum'}`} />
           </button>
         </div>
 

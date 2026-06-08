@@ -102,7 +102,7 @@ export default function Footer() {
           <p
             style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'rgba(156, 149, 137, 0.6)', fontWeight: 300 }}
           >
-            © 2026 Solura Travel · India &amp; Nepal · solura.travel
+            © 2026 Solura · A radiant inner journey · solura.travel
           </p>
           <div className="flex items-center gap-6">
             <Link
