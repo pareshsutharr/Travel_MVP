@@ -55,7 +55,7 @@ export default function HeroSection() {
                   className="block text-[clamp(36px,6.5vw,86px)] font-black leading-[1.0] tracking-[-0.02em] text-white sm:leading-[0.93]"
                   style={{ textShadow: '0 2px 28px rgba(10,18,40,0.5)' }}
                 >
-                 you&apos;ll caryy home.
+                 you&apos;ll carry home.
                 </span>
               </h1>
 
