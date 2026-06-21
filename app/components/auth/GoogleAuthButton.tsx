@@ -22,7 +22,7 @@ export default function GoogleAuthButton({
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        redirectTo: `${origin}/auth/callback`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
