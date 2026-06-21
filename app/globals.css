@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -12,9 +12,9 @@
   --color-graphite: #2D2F33;
   --color-pale-sky: #BFDDE7;
 
-  /* Semantic aliases keep every interface state inside the brand palette. */
+  /* Semantic aliases */
   --color-gold: #D4AF35;
-  --color-gold-dark: #D4AF35;
+  --color-gold-dark: #B8941F;
   --color-cream: #F3F7F8;
   --color-stone: #3C687C;
   --color-border: #BFDDE7;
@@ -32,6 +32,14 @@
 }
 
 :root {
+  --color-accent: #D4AF35;
+  --color-accent-hover: #B8941F;
+  --color-primary: #3C687C;
+  --color-bg: #F3F7F8;
+  --color-surface: #FFFFFF;
+  --color-text: #2D2F33;
+  --color-text-muted: #6B7A80;
+  --color-tint: #BFDDE7;
   --background: #F3F7F8;
   --foreground: #2D2F33;
 }
@@ -48,11 +56,93 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* ─── Scrollbar hide ──────────────────────────────────────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
+/* ─── Marquee ─────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 .animate-marquee {
   animation: marquee 30s linear infinite;
+}
+
+/* ─── Float ───────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float          { animation: float 5s ease-in-out infinite; }
+.animate-float-delay    { animation: float 5s ease-in-out 1.6s infinite; }
+.animate-float-delay-2  { animation: float 5s ease-in-out 3.2s infinite; }
+
+/* ─── Fade-in-up ──────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-fade-up-d1 { animation-delay: 0.10s; }
+.animate-fade-up-d2 { animation-delay: 0.22s; }
+.animate-fade-up-d3 { animation-delay: 0.36s; }
+.animate-fade-up-d4 { animation-delay: 0.52s; }
+.animate-fade-up-d5 { animation-delay: 0.68s; }
+
+/* ─── Shimmer text ────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #D4AF35 0%, #F5D87A 48%, #D4AF35 100%);
+  background-size: 600px 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Pulse glow ──────────────────────────────────────────── */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 53, 0.45); }
+  50%       { box-shadow: 0 0 0 10px rgba(212, 175, 53, 0); }
+}
+.pulse-glow {
+  animation: pulseGlow 2.8s ease-in-out infinite;
+}
+
+/* ─── Sparkle / star pulse ───────────────────────────────── */
+@keyframes starPulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50%       { opacity: 0.25; transform: scale(0.55); }
+}
+.star-pulse { animation: starPulse 2.4s ease-in-out infinite; }
+
+/* ─── Scale in ────────────────────────────────────────────── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Slide in from right ─────────────────────────────────── */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-right {
+  opacity: 0;
+  animation: slideInRight 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

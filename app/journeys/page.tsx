@@ -32,7 +32,7 @@ export default async function JourneysPage({ searchParams }: { searchParams: Pro
               <JourneyCard
                 key={journey.id}
                 tag={journey.category.toUpperCase()}
-                images={journey.image_url ? [journey.image_url, ...getJourneyImages(journey).slice(0, 2)] : getJourneyImages(journey)}
+                images={getJourneyImages(journey)}
                 title={journey.title}
                 details={`${journey.duration} days · ${journey.route}`}
                 price={`from ${formatCurrency(journey.price_from)}`}

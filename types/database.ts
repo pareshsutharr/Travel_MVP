@@ -1,3 +1,17 @@
+export interface Testimonial {
+  id: string
+  name: string
+  role: string | null
+  location: string
+  destination: string
+  quote: string
+  rating: number
+  avatar_url: string
+  is_published: boolean
+  sort_order: number
+  created_at: string
+}
+
 export type Role = 'user' | 'admin' | 'counsellor'
 export type BookingStatus = 'new' | 'confirmed' | 'on_path' | 'delayed' | 'visa_hold' | 'done' | 'cancelled'
 export type TripType = 'solo' | 'couple' | 'family' | 'group'

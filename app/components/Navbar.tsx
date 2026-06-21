@@ -1,134 +1,162 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import SoluraLogo from './SoluraLogo'
+import { Heart } from 'lucide-react'
 
 type NavbarProps = {
   transparentOnTop?: boolean
 }
 
+const navLinks = [
+  { label: 'Destinations', href: '/journeys' },
+  { label: 'Experiences',  href: '/#experiences' },
+  { label: 'How It Works', href: '/#about' },
+  { label: 'AI Planner',   href: '/build/counsel' },
+  { label: 'Stories',      href: '/#storyline' },
+  { label: 'About',        href: '/#about' },
+  { label: 'Contact',      href: '/#counsel' },
+]
+
 export default function Navbar({ transparentOnTop = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [authState, setAuthState] = useState<{ loggedIn: boolean; role: string | null }>({ loggedIn: false, role: null })
+  const [scrolled,  setScrolled]  = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 36)
+    if (!transparentOnTop) return
+    const onScroll = () => setScrolled(window.scrollY > 64)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    const supabase = createClient()
-    supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) { setAuthState({ loggedIn: false, role: null }); return }
-      const { data: profile } = await supabase.from('profiles').select('role').eq('id', data.user.id).single()
-      setAuthState({ loggedIn: true, role: profile?.role ?? 'user' })
-    })
-    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (!session?.user) { setAuthState({ loggedIn: false, role: null }); return }
-      const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single()
-      setAuthState({ loggedIn: true, role: profile?.role ?? 'user' })
-    })
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      listener.subscription.unsubscribe()
-    }
-  }, [])
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [transparentOnTop])
 
-  const isAdmin = authState.role === 'admin' || authState.role === 'counsellor'
-  const portalHref = isAdmin ? '/admin' : '/dashboard'
-  const portalLabel = isAdmin ? 'Admin panel' : 'My dashboard'
+  const isTransparent = transparentOnTop && !scrolled && !menuOpen
 
-  const navLinks = [
-    { label: 'Journeys',      href: '/journeys' },
-    { label: 'Experiences', href: '/#storyline' },
-    { label: 'How it works',  href: '/#how-it-works' },
-    { label: 'Counsel',       href: '/#counsel' },
-    { label: 'Reviews',       href: '/#reviews' },
-  ]
-
-  const solid = !transparentOnTop || scrolled || menuOpen
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    if (href.includes('#')) return false
+    const path = href.split('#')[0].split('?')[0]
+    return path ? pathname === path || pathname.startsWith(`${path}/`) : false
+  }
 
   return (
-    <nav className={`fixed left-0 right-0 top-0 z-50 border-b border-pale-sky bg-platinum/95 shadow-sm backdrop-blur-xl transition-all duration-300 ${transparentOnTop && !solid ? 'bg-platinum/90' : ''}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <SoluraLogo href="/" showTagline className="w-32 sm:w-40" />
+    <nav
+      className="sticky top-0 z-[100]"
+      style={{
+        background: 'rgba(255,255,255,0.96)',
+        backdropFilter: 'blur(20px) saturate(160%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+        borderBottom: '1px solid rgba(229,231,235,0.8)',
+        boxShadow: '0 1px 12px rgba(0,0,0,0.06)',
+      }}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-6">
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* ── Logo ── */}
+          <Link
+            href="/"
+            className="group flex shrink-0 items-center"
+            onClick={() => setMenuOpen(false)}
+          >
+            <img
+              src="/logo.png"
+              alt="SOLURA"
+              className="h-9 w-auto"
+            />
+          </Link>
+
+          {/* ── Desktop nav links ── */}
+          <div className="hidden items-center gap-5 xl:gap-7 md:flex">
             {navLinks.map((link) => (
-              <a key={link.label} href={link.href}
-                className="text-sm font-medium text-graphite transition-colors duration-200 hover:text-metallic-gold">
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`relative py-1 text-[13px] font-medium transition-all duration-200 ${
+                  isActive(link.href) ? 'text-[#1D2B53]' : 'text-[#6B7A80] hover:text-[#1D2B53]'
+                }`}
+              >
                 {link.label}
-              </a>
+                {isActive(link.href) && (
+                  <span className="absolute -bottom-0.5 left-0 h-px w-full rounded-full bg-[#E8A317]" />
+                )}
+              </Link>
             ))}
           </div>
 
-          {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-3">
-            {authState.loggedIn ? (
-              <Link href={portalHref}
-                className="text-sm px-5 py-2 rounded-full transition-all duration-200 hover:bg-metallic-gold hover:text-platinum"
-                style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35', border: '1px solid #D4AF35', fontWeight: 400 }}>
-                {portalLabel} →
-              </Link>
-            ) : (
-              <>
-                <Link href="/sign-in"
-                  className="rounded-xl px-4 py-2 text-sm font-medium text-graphite transition-colors duration-200 hover:bg-pale-sky">
-                  Sign in
-                </Link>
-                <Link href="/build/type"
-                  className="rounded-xl bg-metallic-gold px-5 py-2.5 text-sm font-medium text-graphite transition-all duration-200 hover:bg-platinum">
-                  Begin →
-                </Link>
-              </>
-            )}
+          {/* ── Desktop CTAs ── */}
+          <div className="hidden items-center gap-3 md:flex shrink-0">
+            {/* Wishlist heart */}
+            <button
+              aria-label="Wishlist"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-[#6B7A80] transition-all duration-200 hover:scale-105 hover:text-[#1D2B53]"
+            >
+              <Heart className="h-4 w-4" />
+            </button>
+
+            {/* Talk to Expert */}
+            <Link
+              href="/build/counsel"
+              className="text-[13px] font-medium text-[#6B7A80] transition-colors duration-200 hover:text-[#1D2B53]"
+            >
+              Talk to Expert
+            </Link>
+
+            {/* Plan My Journey — primary CTA */}
+            <Link
+              href="/build/type"
+              className="pulse-glow rounded-full bg-[#1D2B53] px-5 py-2.5 text-[13px] font-bold tracking-[0.2px] text-white transition-all duration-200 hover:scale-[1.03] hover:bg-[#E8A317]"
+            >
+              Plan My Journey
+            </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-            <span className={`block h-0.5 w-6 bg-graphite transition-transform duration-200 ${menuOpen ? 'translate-y-2 rotate-45' : ''}`} />
-            <span className={`block h-0.5 w-6 bg-graphite transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-0.5 w-6 bg-graphite transition-transform duration-200 ${menuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+          {/* ── Mobile hamburger ── */}
+          <button
+            className="flex flex-col gap-[5px] p-2 md:hidden"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span className={`block h-0.5 w-6 rounded-full bg-[#1D2B53] transition-all duration-300 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+            <span className={`block h-0.5 w-6 rounded-full bg-[#1D2B53] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 w-6 rounded-full bg-[#1D2B53] transition-all duration-300 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* ── Mobile drawer ── */}
         {menuOpen && (
-          <div className="md:hidden py-4" style={{ borderTop: '1px solid #BFDDE7' }}>
-            <div className="flex flex-col gap-4 pb-4">
+          <div className="border-t border-[#1D2B53]/8 bg-white py-5 md:hidden">
+            <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a key={link.label} href={link.href}
-                  className="text-sm py-1 hover:text-metallic-gold transition-colors duration-200"
-                  style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#2D2F33' }}
-                  onClick={() => setMenuOpen(false)}>
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`w-fit text-sm font-medium transition-colors duration-200 ${
+                    isActive(link.href) ? 'text-[#E8A317]' : 'text-[#6B7A80] hover:text-[#1D2B53]'
+                  }`}
+                  onClick={() => setMenuOpen(false)}
+                >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <div className="flex gap-3 pt-2">
-                {authState.loggedIn ? (
-                  <Link href={portalHref} onClick={() => setMenuOpen(false)}
-                    className="text-sm px-5 py-2 rounded-full"
-                    style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35', border: '1px solid #D4AF35' }}>
-                    {portalLabel} →
-                  </Link>
-                ) : (
-                  <>
-                    <Link href="/sign-in" onClick={() => setMenuOpen(false)}
-                      className="text-sm px-4 py-2 rounded-full"
-                      style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#2D2F33', border: '1px solid #BFDDE7' }}>
-                      Sign in
-                    </Link>
-                    <Link href="/build/type" onClick={() => setMenuOpen(false)}
-                      className="text-sm px-5 py-2 rounded-full"
-                      style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35', border: '1px solid #D4AF35' }}>
-                      Begin →
-                    </Link>
-                  </>
-                )}
+              <div className="mt-2 flex items-center gap-3 border-t border-[#1D2B53]/8 pt-4">
+                <Link
+                  href="/build/counsel"
+                  className="text-sm font-medium text-[#6B7A80] hover:text-[#1D2B53]"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Talk to Expert
+                </Link>
+                <Link
+                  href="/build/type"
+                  className="rounded-full bg-[#1D2B53] px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-[#E8A317]"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Plan My Journey
+                </Link>
               </div>
             </div>
           </div>

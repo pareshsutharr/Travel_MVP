@@ -26,6 +26,16 @@ export async function proxy(request: NextRequest) {
   const { data: { user }, error: authError } = await supabase.auth.getUser()
   const path = request.nextUrl.pathname
 
+  // Supabase can fall back to the Site URL when an OAuth redirect URL is missing
+  // from the allow-list. Preserve the code and send it to the real callback.
+  if (path === '/' && request.nextUrl.searchParams.has('code')) {
+    const callbackUrl = new URL('/auth/callback', request.url)
+    request.nextUrl.searchParams.forEach((value, key) => {
+      callbackUrl.searchParams.set(key, value)
+    })
+    return NextResponse.redirect(callbackUrl)
+  }
+
   // Stale / revoked refresh token — wipe the sb-* cookies and continue as guest
   if (authError && (
     authError.message?.includes('Refresh Token') ||
@@ -100,5 +110,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/sign-in', '/register', '/dashboard/:path*', '/admin/:path*', '/build/:path*'],
+  matcher: ['/', '/sign-in', '/register', '/dashboard/:path*', '/admin/:path*', '/build/:path*'],
 }

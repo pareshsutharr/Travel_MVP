@@ -19,7 +19,7 @@ export default function SoluraLogo({
     <span className={`inline-flex flex-col ${className}`}>
       <span className={framed ? 'rounded-xl bg-platinum px-2 py-1 shadow-sm' : ''}>
         <Image
-          src="/Solura Logo coloured transparent.png"
+          src="/logo.png"
           alt="Solura"
           width={1415}
           height={319}

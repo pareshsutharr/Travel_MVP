@@ -1,3 +1,10 @@
+import { clsx, type ClassValue } from 'clsx'
+
+/** shadcn-compatible class merger — no tailwind-merge needed for this project */
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs)
+}
+
 export function formatCurrency(amount: number, currency = 'USD') {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount)
 }

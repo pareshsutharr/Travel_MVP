@@ -1,27 +1,63 @@
 import { BadgeCheck, Compass, Headphones, ShieldCheck } from 'lucide-react'
 
 const benefits = [
-  { icon: Compass, title: 'Curated journeys', copy: 'Handpicked for depth, not crowds' },
-  { icon: BadgeCheck, title: 'One clear price', copy: 'Flights, stays and support bundled' },
-  { icon: Headphones, title: '24/7 counsel', copy: 'A real person when you need one' },
-  { icon: ShieldCheck, title: 'Safe and secure', copy: 'Live support throughout your trip' },
+  {
+    icon: Compass,
+    iconBg: '#EEF2FB',
+    iconColor: '#1D2B53',
+    title: 'Curated Experiences',
+    copy: 'Handpicked sacred journeys, designed for you.',
+  },
+  {
+    icon: BadgeCheck,
+    iconBg: '#FFF8E8',
+    iconColor: '#E8A317',
+    title: 'Best Price Guarantee',
+    copy: 'We match any price for the same journey.',
+  },
+  {
+    icon: Headphones,
+    iconBg: '#EEF2FB',
+    iconColor: '#1D2B53',
+    title: '24/7 Support',
+    copy: "We're here to help, wherever you are.",
+  },
+  {
+    icon: ShieldCheck,
+    iconBg: '#EDF4EE',
+    iconColor: '#6E8B74',
+    title: 'Safe & Secure',
+    copy: 'Travel with confidence, insurance included.',
+  },
 ]
 
 export default function ServicesStrip() {
   return (
-    <section className="bg-platinum px-4 pb-14 pt-28 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-5 border-b border-pale-sky pb-12 sm:grid-cols-2 lg:grid-cols-4">
-        {benefits.map(({ icon: Icon, title, copy }, index) => (
-          <div key={title} className={`flex items-center gap-4 lg:px-5 ${index > 0 ? 'lg:border-l lg:border-pale-sky' : ''}`}>
-            <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${index === 1 ? 'bg-metallic-gold text-graphite' : index === 2 ? 'bg-graphite text-platinum' : 'bg-pale-sky text-blue-slate'}`}>
-              <Icon size={20} />
-            </span>
-            <span>
-              <span className="block text-sm font-semibold text-graphite">{title}</span>
-              <span className="mt-1 block text-xs leading-5 text-blue-slate">{copy}</span>
-            </span>
-          </div>
-        ))}
+    <section className="bg-white px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-14 lg:px-8 border-b border-[#F0EDE8]">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 divide-y divide-[#F0EDE8] sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-y-0 sm:gap-0">
+          {benefits.map(({ icon: Icon, iconBg, iconColor, title, copy }, i) => (
+            <div
+              key={title}
+              className={`flex items-center gap-4 py-6 ${
+                i === 0 ? 'sm:pr-6 lg:pl-0' : i === benefits.length - 1 ? 'sm:pl-6 lg:pr-0' : 'sm:px-6'
+              }`}
+            >
+              {/* Icon circle */}
+              <div
+                className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full"
+                style={{ backgroundColor: iconBg }}
+              >
+                <Icon size={22} style={{ color: iconColor }} />
+              </div>
+              {/* Text */}
+              <div>
+                <h3 className="text-[14px] font-bold text-[#1F2937]">{title}</h3>
+                <p className="mt-0.5 text-[13px] leading-[1.6] text-[#6B7A80]">{copy}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

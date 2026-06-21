@@ -2,10 +2,10 @@ import { createClient } from '@/lib/supabase/server'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import ServicesStrip from './components/ServicesStrip'
-import OneStopSolutionSection from './components/OneStopSolutionSection'
-import StoryLineSection from './components/StoryLineSection'
+import FeaturedDestinationSection from './components/FeaturedDestinationSection'
+import PerfectAdventureSection from './components/PerfectAdventureSection'
+import JourneyStartsSection from './components/JourneyStartsSection'
 import JourneyHighlightsSection from './components/JourneyHighlightsSection'
-import HowItWorks from './components/HowItWorks'
 import CounselSection from './components/CounselSection'
 import TestimonialsSection from './components/TestimonialsSection'
 import Footer from './components/Footer'
@@ -25,10 +25,10 @@ export default async function Home() {
       <main>
         <HeroSection />
         <ServicesStrip />
-        <StoryLineSection journeys={(journeys as Journey[]) ?? []} />
-        <OneStopSolutionSection />
+        <FeaturedDestinationSection />
+        <PerfectAdventureSection />
+        <JourneyStartsSection />
         <JourneyHighlightsSection journeys={(journeys as Journey[]) ?? []} />
-        <HowItWorks />
         <CounselSection />
         <TestimonialsSection />
       </main>

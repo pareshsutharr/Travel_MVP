@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { X, MessageCircle } from 'lucide-react'
 import type { Journey } from '@/types/database'
-import { getJourneyImages } from '@/lib/travel-images'
+import { getJourneyAttraction, getJourneyImages } from '@/lib/travel-images'
 
 type Highlight = {
   journey: Journey
@@ -21,9 +21,7 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
 
   const highlights: Highlight[] = journeys.slice(0, 8).map((j) => ({
     journey: j,
-    images: j.image_url
-      ? [j.image_url, ...getJourneyImages(j).slice(0, 2)]
-      : getJourneyImages(j),
+    images: getJourneyImages(j),
   }))
 
   function openStory(h: Highlight) {
@@ -38,16 +36,16 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
 
   return (
     <>
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F3F7F8' }}>
+      <section className="px-4 py-10 sm:px-6 sm:py-20 lg:px-8" style={{ backgroundColor: '#F3F7F8' }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-xs tracking-widest uppercase mb-2" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#D4AF35', letterSpacing: '0.2em' }}>
                 Journey Stories
               </p>
-              <h2 className="text-2xl sm:text-3xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: '#2D2F33', fontWeight: 400 }}>
+              <h2 className="text-[clamp(28px,4vw,44px)] leading-tight" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#2D2F33', fontWeight: 700 }}>
                 Glimpses of{' '}
-                <em style={{ color: '#D4AF35', fontStyle: 'italic' }}>the path.</em>
+                <span style={{ color: '#D4AF35' }}>the path.</span>
               </h2>
             </div>
           </div>
@@ -75,8 +73,8 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
                   <p className="text-[10px] leading-tight text-graphite font-medium truncate" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     {h.journey.title}
                   </p>
-                  <p className="text-[9px] text-blue-slate mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                    {h.journey.duration}d
+                  <p className="mt-0.5 text-[15px] leading-[1.7] text-[#6B7A80]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                    {getJourneyAttraction(h.journey)}
                   </p>
                 </div>
               </button>
@@ -136,7 +134,7 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
             {/* Content */}
             <div className="p-6">
               <p className="text-xs tracking-widest uppercase text-metallic-gold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                {open.journey.duration} days · {open.journey.route}
+                Best attraction · {getJourneyAttraction(open.journey)}
               </p>
               <h3 className="text-2xl text-platinum mb-2" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
                 {open.journey.title}
@@ -154,7 +152,7 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
               <div className="flex gap-3">
                 <Link
                   href={`/journeys/${open.journey.slug}`}
-                  className="flex-1 rounded-full py-3 text-center text-sm font-medium text-graphite transition-colors hover:opacity-90"
+                  className="flex-1 rounded-full py-3 text-center text-sm font-semibold tracking-[0.3px] text-graphite transition-all duration-200 hover:scale-[1.02] hover:opacity-90"
                   style={{ backgroundColor: '#D4AF35', fontFamily: "'DM Sans', sans-serif" }}
                   onClick={() => setOpen(null)}
                 >
@@ -162,7 +160,7 @@ export default function JourneyHighlightsSection({ journeys }: { journeys: Journ
                 </Link>
                 <Link
                   href="/build/type"
-                  className="flex items-center gap-2 rounded-full border border-platinum/20 px-4 py-3 text-sm text-platinum hover:border-metallic-gold transition-colors"
+                  className="flex items-center gap-2 rounded-full border border-platinum/20 px-4 py-3 text-sm font-semibold tracking-[0.3px] text-platinum transition-all duration-200 hover:scale-[1.02] hover:border-metallic-gold"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                   onClick={() => setOpen(null)}
                 >

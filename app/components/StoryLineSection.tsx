@@ -1,5 +1,5 @@
 import type { Journey } from '@/types/database'
-import { getJourneyImages } from '@/lib/travel-images'
+import { getJourneyAttraction, getJourneyImages } from '@/lib/travel-images'
 import JourneyCard from './JourneyCard'
 
 const FALLBACK_TRIPS = [
@@ -45,11 +45,9 @@ export default function StoryLineSection({ journeys }: Props) {
   const displayTrips = hasRealData
     ? journeys.slice(0, 3).map((j) => ({
         tag: j.category.toUpperCase(),
-        images: j.image_url
-          ? [j.image_url, ...getJourneyImages(j).slice(0, 2)]
-          : getJourneyImages(j),
+        images: getJourneyImages(j),
         title: j.title,
-        details: `${j.duration} d · ${j.route}`,
+        details: `${getJourneyAttraction(j)} · ${j.duration} d`,
         price: `FROM $${j.price_from.toLocaleString()}`,
         href: `/journeys/${j.slug}`,
         category: j.category,
@@ -57,6 +55,7 @@ export default function StoryLineSection({ journeys }: Props) {
     : FALLBACK_TRIPS.map((t) => ({
         ...t,
         images: getJourneyImages({ title: t.title, category: t.category as 'spiritual' | 'heritage' | 'adventure' | 'wellness', route: t.details }),
+        details: `${getJourneyAttraction({ title: t.title, category: t.category as 'spiritual' | 'heritage' | 'adventure' | 'wellness', route: t.details })} · ${t.details}`,
       }))
 
   return (
